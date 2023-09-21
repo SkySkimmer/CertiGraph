@@ -1,280 +1,85 @@
 (* -*- mode: coq; coq-prog-args: ("-emacs" "-w" "-overriding-logical-loadpath" "-w" "-deprecated-native-compiler-option,-native-compiler-disabled" "-native-compiler" "ondemand" "-Q" "/github/workspace/cwd" "Top" "-Q" "/github/workspace/CertiGraph/lib" "CertiGraph.lib" "-Q" "/github/workspace/CertiGraph/msl_ext" "CertiGraph.msl_ext" "-Q" "/github/workspace/CertiGraph/msl_application" "CertiGraph.msl_application" "-Q" "/github/workspace/CertiGraph/graph" "CertiGraph.graph" "-Q" "/github/workspace/CertiGraph/heap_model_direct" "CertiGraph.heap_model_direct" "-Q" "/github/workspace/CertiGraph" "CertiGraph" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/VST" "VST" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/compcert" "compcert" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Bignums" "Bignums" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Flocq" "Flocq" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Ltac2" "Ltac2" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/MenhirLib" "MenhirLib" "-top" "CertiGraph.CertiGC.refine_bug") -*- *)
-(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines *)
+(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines *)
 (* coqc version 8.17.1 compiled with OCaml 4.13.1
    coqtop version 8.17.1
-   Expected coqc runtime on this file: 16.406 sec *)
+   Expected coqc runtime on this file: 26.729 sec *)
 Require Coq.Init.Ltac.
-Require CertiGraph.msl_ext.abs_addr.
-Require Coq.Arith.Arith.
-Require Coq.Arith.EqNat.
-Require Coq.Arith.Max.
-Require Coq.Bool.Bool.
-Require Coq.Classes.EquivDec.
-Require Coq.Classes.Equivalence.
-Require Coq.Classes.Morphisms.
-Require Coq.Classes.RelationClasses.
-Require Coq.Lists.List.
-Require Coq.Lists.ListDec.
-Require Coq.Lists.ListSet.
-Require Coq.Logic.ClassicalFacts.
-Require Coq.Logic.ConstructiveEpsilon.
-Require Coq.Logic.Eqdep.
-Require Coq.Logic.EqdepFacts.
-Require Coq.Logic.Eqdep_dec.
-Require Coq.Logic.FunctionalExtensionality.
-Require Coq.Logic.JMeq.
-Require Coq.Logic.ProofIrrelevance.
-Require Coq.Logic.PropExtensionality.
-Require Coq.Numbers.Natural.Peano.NPeano.
-Require Coq.Program.Basics.
-Require Coq.Reals.Rdefinitions.
-Require Coq.Relations.Relation_Definitions.
-Require Coq.Relations.Relations.
-Require Coq.Setoids.Setoid.
-Require Coq.Sets.Constructive_sets.
-Require Coq.Sets.Ensembles.
-Require Coq.Sets.Finite_sets.
-Require Coq.Sorting.Permutation.
-Require Coq.Sorting.Sorted.
-Require Coq.Sorting.Sorting.
-Require Coq.Strings.Ascii.
-Require Coq.Strings.String.
-Require Coq.Structures.GenericMinMax.
-Require Coq.Structures.Orders.
-Require Coq.Wellfounded.Wellfounded.
 Require Coq.ZArith.ZArith.
-Require Coq.ZArith.ZArith_base.
-Require Coq.ZArith.Zcomplements.
-Require Coq.ZArith.Znumtheory.
-Require Coq.funind.FunInd.
-Require Coq.funind.Recdef.
+Require Coq.Program.Basics.
 Require Coq.micromega.Lia.
-Require Ltac2.Init.
-Require VST.floyd.simple_reify.
-Require VST.msl.simple_CCC.
-Require VST.veric.lift.
-Require compcert.cfrontend.Clight.
-Require compcert.cfrontend.Cop.
-Require compcert.cfrontend.Ctypes.
-Require compcert.common.AST.
-Require compcert.common.Errors.
-Require compcert.common.Events.
-Require compcert.common.Globalenvs.
-Require compcert.common.Memdata.
-Require compcert.common.Memory.
-Require compcert.common.Memtype.
+Require compcert.lib.Integers.
 Require compcert.common.Values.
-Require compcert.export.Clightdefs.
+Require Coq.Arith.EqNat.
+Require Coq.Relations.Relations.
 Require compcert.lib.Axioms.
 Require compcert.lib.Coqlib.
 Require compcert.lib.Floats.
-Require compcert.lib.Integers.
-Require compcert.lib.Maps.
-Require CertiGraph.lib.EquivDec_ext.
-Require Ltac2.Bool.
-Require Ltac2.Constant.
-Require Ltac2.Constr.
-Require Ltac2.Constructor.
-Require Ltac2.Evar.
-Require Ltac2.Float.
-Require Ltac2.Ident.
-Require Ltac2.Ind.
-Require Ltac2.Int.
-Require Ltac2.Ltac1.
-Require Ltac2.Message.
-Require Ltac2.Meta.
-Require Ltac2.Proj.
-Require Ltac2.Std.
-Require Ltac2.String.
-Require Ltac2.Uint63.
-Require Ltac2.Char.
-Require Ltac2.Control.
-Require Ltac2.Env.
-Require Ltac2.Printf.
-Require VST.floyd.find_nth_tactic.
+Require compcert.common.AST.
+Require compcert.common.Memdata.
+Require compcert.common.Memtype.
+Require compcert.common.Memory.
+Require compcert.common.Globalenvs.
+Require Coq.Logic.ClassicalFacts.
+Require Coq.Logic.FunctionalExtensionality.
 Require VST.msl.Axioms.
-Require CertiGraph.lib.Coqlib.
-Require Ltac2.Option.
-Require Ltac2.Pattern.
-Require CertiGraph.lib.Relation_ext.
+Require Coq.Logic.EqdepFacts.
 Require VST.msl.Extensionality.
-Require VST.zlist.sublist.
-Require Ltac2.Array.
-Require Ltac2.List.
-Require VST.floyd.computable_theorems.
-Require VST.msl.sepalg.
-Require VST.msl.seplog.
-Require VST.zlist.Zlength_solver.
-Require CertiGraph.lib.Equivalence_ext.
-Require Ltac2.Fresh.
-Require VST.msl.ghost.
-Require VST.sepcomp.extspec.
-Require CertiGraph.lib.List_Func_ext.
-Require CertiGraph.msl_ext.seplog.
-Require VST.floyd.jmeq_lemmas.
-Require Ltac2.Notations.
+Require Coq.Lists.List.
+Require Coq.Bool.Bool.
 Require VST.msl.base.
-Require VST.zlist.list_solver.
-Require VST.msl.eq_dec.
-Require VST.msl.functors.
-Require VST.msl.ghost_seplog.
-Require VST.msl.sig_isomorphism.
-Require CertiGraph.CertiGC.gc.
-Require CertiGraph.lib.Ensembles_ext.
 Require VST.msl.Coqlib2.
-Require VST.msl.cjoins.
-Require VST.msl.sepalg_generators.
-Require VST.floyd.Clightnotations.
-Require VST.msl.ageable.
-Require VST.msl.boolean_alg.
-Require VST.msl.psepalg.
-Require VST.msl.sepalg_functors.
-Require VST.msl.combiner_sa.
-Require VST.msl.predicates_hered.
-Require VST.msl.age_sepalg.
-Require VST.msl.cross_split.
-Require VST.msl.knot.
-Require VST.msl.subtypes.
-Require VST.msl.predicates_rec.
-Require VST.sepcomp.Address.
-Require VST.veric.val_lemmas.
-Require VST.msl.knot_full_variant.
-Require CertiGraph.lib.List_ext.
-Require VST.msl.age_to.
-Require VST.msl.tree_shares.
+Require Coq.Sorting.Permutation.
+Require VST.msl.eq_dec.
+Require Coq.Sets.Ensembles.
+Require Coq.Logic.ConstructiveEpsilon.
 Require VST.veric.coqlib4.
-Require CertiGraph.graph.find_not_in.
-Require VST.msl.knot_shims.
-Require VST.msl.shares.
-Require VST.floyd.coqlib3.
-Require VST.msl.predicates_sl.
-Require VST.msl.pshares.
-Require VST.sepcomp.mem_lemmas.
-Require VST.msl.corable.
-Require VST.sepcomp.semantics.
-Require VST.veric.Memory.
-Require VST.msl.subtypes_sl.
-Require CertiGraph.lib.EnumEnsembles.
-Require CertiGraph.lib.relation_list.
-Require VST.sepcomp.semantics_lemmas.
-Require VST.floyd.compact_prod_sum.
-Require VST.msl.contractive.
-Require VST.sepcomp.event_semantics.
-Require Ltac2.Ltac2.
-Require VST.msl.knot_full_sa.
 Require VST.veric.base.
-Require VST.sepcomp.step_lemmas.
-Require VST.veric.type_induction.
-Require CertiGraph.graph.graph_model.
-Require VST.veric.Cop2.
-Require VST.veric.composite_compute.
-Require VST.veric.address_conflict.
-Require CertiGraph.graph.path_lemmas.
-Require VST.floyd.functional_base.
-Require VST.veric.align_mem.
-Require VST.veric.compspecs.
-Require CertiGraph.graph.reachable_ind.
+Require compcert.export.Clightdefs.
+Require compcert.cfrontend.Ctypes.
+Require compcert.cfrontend.Cop.
+Require compcert.cfrontend.Clight.
+Require compcert.lib.Maps.
+Require VST.sepcomp.Address.
+Require VST.veric.Memory.
 Require VST.veric.Clight_base.
 Require VST.veric.Clight_lemmas.
-Require VST.veric.Clight_core.
-Require CertiGraph.graph.graph_gen.
-Require VST.msl.msl_standard.
-Require VST.msl.normalize.
-Require VST.msl.alg_seplog.
-Require VST.msl.sepalg_list.
-Require VST.veric.shares.
-Require VST.msl.log_normalize.
-Require VST.msl.wand_frame.
-Require VST.msl.wandQ_frame.
-Require CertiGraph.msl_ext.log_normalize.
-Require VST.msl.iter_sepcon.
-Require VST.msl.ramification_lemmas.
-Require VST.veric.local.
-Require VST.veric.rmaps.
-Require VST.veric.rmaps_lemmas.
-Require CertiGraph.msl_ext.iter_sepcon.
-Require VST.veric.compcert_rmaps.
-Require VST.veric.juicy_base.
-Require CertiGraph.msl_ext.ramification_lemmas.
-Require VST.veric.age_to_resource_at.
-Require VST.veric.juicy_mem.
-Require VST.veric.mpred.
-Require VST.veric.juicy_safety.
-Require VST.veric.res_predicates.
-Require VST.veric.own.
-Require VST.veric.slice.
-Require VST.veric.juicy_mem_lemmas.
-Require VST.veric.juicy_mem_ops.
-Require VST.veric.mapsto_memory_block.
-Require VST.veric.mem_lessdef.
-Require VST.veric.ghosts.
-Require VST.veric.ghost_PCM.
-Require VST.veric.invariants.
-Require VST.veric.Clight_mem_lessdef.
-Require VST.veric.fupd.
-Require VST.veric.seplog.
-Require VST.veric.assert_lemmas.
-Require VST.veric.tycontext.
-Require VST.veric.Clight_Cop2.
-Require VST.veric.Clight_evsem.
-Require VST.veric.expr.
-Require VST.veric.change_compspecs.
-Require VST.veric.expr2.
-Require VST.veric.binop_lemmas2.
-Require VST.veric.environ_lemmas.
-Require VST.veric.expr_lemmas2.
-Require VST.veric.binop_lemmas3.
-Require VST.veric.binop_lemmas4.
-Require VST.veric.binop_lemmas5.
-Require VST.veric.binop_lemmas6.
-Require VST.veric.expr_lemmas3.
-Require VST.veric.Clight_mapsto_memory_block.
-Require VST.veric.binop_lemmas.
-Require VST.veric.Clight_seplog.
-Require VST.veric.juicy_extspec.
-Require VST.veric.expr_lemmas4.
-Require VST.veric.expr_lemmas.
-Require VST.veric.extend_tc.
-Require VST.veric.initial_world.
-Require VST.veric.valid_pointer.
-Require VST.veric.Clight_assert_lemmas.
-Require VST.veric.Clight_initial_world.
-Require VST.veric.semax.
-Require VST.veric.semax_lemmas.
-Require VST.veric.semax_call.
-Require VST.veric.semax_conseq.
-Require VST.veric.semax_switch.
-Require VST.veric.initialize.
-Require VST.veric.semax_loop.
-Require VST.veric.semax_straight.
-Require VST.veric.semax_ext.
-Require VST.veric.semax_prog.
-Require VST.veric.SeparationLogic.
-Require VST.veric.SeparationLogicSoundness.
-Require VST.veric.SequentialClight2.
-Require VST.floyd.val_lemmas.
-Require VST.veric.NullExtension.
-Require VST.floyd.assert_lemmas.
-Require VST.floyd.SeparationLogicFacts.
-Require VST.floyd.SeparationLogicAsLogic.
-Require VST.floyd.SeparationLogicAsLogicSoundness.
-Require VST.floyd.base.
-Require VST.floyd.computable_functions.
-Require VST.floyd.seplog_tactics.
-Require VST.floyd.typecheck_lemmas.
-Require VST.floyd.const_only_eval.
-Require VST.floyd.base2.
-Require VST.floyd.canon.
-Require VST.floyd.linking.
-Require VST.floyd.client_lemmas.
+Require VST.veric.val_lemmas.
+Require Coq.funind.Recdef.
+Require Coq.Wellfounded.Wellfounded.
+Require VST.msl.ageable.
+Require VST.msl.sepalg.
+Require VST.msl.sepalg_generators.
+Require VST.msl.age_sepalg.
+Require Coq.Structures.GenericMinMax.
+Require VST.msl.boolean_alg.
+Require VST.msl.functors.
+Require Coq.Classes.RelationClasses.
+Require VST.msl.predicates_hered.
+Require Coq.Arith.Arith.
+Require VST.msl.knot_full_variant.
+Require VST.msl.sig_isomorphism.
+Require Coq.Logic.Eqdep_dec.
+Require VST.msl.knot.
+Require VST.msl.knot_shims.
+Require VST.msl.sepalg_functors.
 Require CertiGraph.CertiGC.GCGraph.
-Require CertiGraph.CertiGC.env_graph_gc.
-Module Export spatial_gcgraph.
-Import VST.veric.compcert_rmaps.
-Import CertiGraph.graph.graph_model.
+Require CertiGraph.CertiGC.gc.
+Require VST.floyd.library.
+Require VST.floyd.proofauto.
+Export VST.floyd.proofauto.
+Export VST.floyd.library.
+Export CertiGraph.CertiGC.gc.
+
+#[export] Instance CompSpecs : compspecs.
+make_compspecs prog.
+Defined.
+Definition Vprog : varspecs.
+mk_varspecs prog.
+Defined.
+Definition thread_info_type : type. exact (Tstruct _thread_info noattr). Defined.
+Definition space_type : type. exact (Tstruct _space noattr). Defined.
+Definition heap_type: type. exact (Tstruct _heap noattr). Defined.
 Import CertiGraph.CertiGC.GCGraph.
-Export CertiGraph.CertiGC.env_graph_gc.
-Import CertiGraph.msl_ext.iter_sepcon.
 
 Local Open Scope logic.
 
@@ -284,11 +89,11 @@ Definition vertex_at (sh: share) (p: val) (header: Z) (lst_fields: list val) :=
          (data_at sh (if Archi.ptr64 then tulong else tuint)
                   (Z2val header) (offset_val (- WORD_SIZE) p) *
           data_at sh (tarray int_or_ptr_type (Zlength lst_fields)) lst_fields p).
-Definition vertex_rep (sh: share) (g: LGraph) (v: VType): mpred. exact (vertex_at sh (vertex_address g v) (make_header g v) (make_fields_vals g v)). Defined.
-Definition generation_rep (g: LGraph) (gen: nat): mpred. exact (iter_sepcon (map (fun x => (gen, x))
-                   (nat_inc_list (nth_gen g gen).(number_of_vertices)))
-              (vertex_rep (nth_sh g gen) g)). Defined.
-Definition graph_rep (g: LGraph): mpred. exact (iter_sepcon (nat_inc_list (length g.(glabel).(g_gen))) (generation_rep g)). Defined.
+Definition vertex_rep (sh: share) (g: LGraph) (v: VType): mpred.
+exact (vertex_at sh (vertex_address g v) (make_header g v) (make_fields_vals g v)).
+Defined.
+Definition graph_rep (g: LGraph): mpred.
+Admitted.
 
 Definition fun_info_rep (sh: share) (fi: fun_info) (p: val) : mpred :=
   Eval cbv delta [Archi.ptr64] match
@@ -297,16 +102,16 @@ Definition fun_info_rep (sh: share) (fi: fun_info) (p: val) : mpred :=
          data_at
            sh (tarray (if Archi.ptr64 then tulong else tuint) (len + 2))
            (map Z2val (fun_word_size fi :: len :: live_roots_indices fi)) p.
-Definition space_rest_rep (sp: space): mpred. exact (if (Val.eq sp.(space_start) nullval)
-  then emp
-  else data_at_ (space_sh sp)
-                (tarray int_or_ptr_type (sp.(total_space) - sp.(used_space)))
-                (offset_val (WORD_SIZE * used_space sp) sp.(space_start))). Defined.
-Definition heap_rest_rep (hp: heap): mpred. exact (iter_sepcon hp.(spaces) space_rest_rep). Defined.
-Definition space_tri (sp: space): (reptype space_type). exact (let s := sp.(space_start) in (s, (offset_val (WORD_SIZE * sp.(used_space)) s,
-                                    offset_val (WORD_SIZE * sp.(total_space)) s))). Defined.
+Definition heap_rest_rep (hp: heap): mpred.
+Admitted.
+Definition space_tri (sp: space): (reptype space_type).
+exact (let s := sp.(space_start) in (s, (offset_val (WORD_SIZE * sp.(used_space)) s,
+                                    offset_val (WORD_SIZE * sp.(total_space)) s))).
+Defined.
 Definition heap_struct_rep (sh: share) (sp_reps: list (@reptype CompSpecs space_type)) (h: val):
-  mpred. exact (@data_at CompSpecs sh heap_type sp_reps h). Defined.
+  mpred.
+exact (@data_at CompSpecs sh heap_type sp_reps h).
+Defined.
 
 Definition before_gc_thread_info_rep (sh: share) (ti: thread_info) (t: val) :=
   let nursery := heap_head ti.(ti_heap) in
@@ -343,7 +148,8 @@ Definition valid_int_or_ptr (x: val) :=
   | Vlong i => if Archi.ptr64 then Int64.testbit i 0 = true else False
   | _ => False
   end.
-Program Definition weak_derives (P Q: mpred): mpred. exact ((! (P >=> Q))%pred). Defined.
+Program Definition weak_derives (P Q: mpred): mpred.
+Admitted.
 
 Definition generation_data_at_ g t_info gen :=
   data_at_ (nth_sh g gen)
@@ -362,14 +168,9 @@ Lemma generation_data_at__ptrofs: forall g t_info gen b i,
                         !! (WORD_SIZE * gen_size t_info gen + Ptrofs.unsigned i <=
                             Ptrofs.max_unsigned).
 Admitted.
-Definition space_token_rep (sp: space): mpred. exact (if Val.eq (space_start sp) nullval then emp
-  else malloc_token Ews (tarray int_or_ptr_type (total_space sp)) (space_start sp)). Defined.
-Definition ti_token_rep (ti: thread_info): mpred. exact (malloc_token Ews heap_type (ti_heap_p ti) *
-  iter_sepcon (spaces (ti_heap ti)) space_token_rep). Defined.
-
-End spatial_gcgraph.
+Definition ti_token_rep (ti: thread_info): mpred.
+Admitted.
 Export VST.veric.rmaps.
-Export CertiGraph.CertiGC.GCGraph.
 Definition all_string_constants (sh: share) (gv: globals) : mpred.
 Admitted.
 Definition MSS_constant (gv: globals): mpred.
@@ -798,305 +599,113 @@ Definition free_heap_spec :=
     PROP () PARAMS (h) GLOBALS () SEP ()
   POST [tvoid]
   PROP () LOCAL () SEP ().
-Definition Gprog: funspecs.
-exact (ltac:(with_library prog
-                     [test_int_or_ptr_spec;
-                      int_or_ptr_to_int_spec;
-                      int_or_ptr_to_ptr_spec;
-                      int_to_int_or_ptr_spec;
-                      ptr_to_int_or_ptr_spec;
-                      Is_block_spec;
-                      Is_from_spec;
-                      abort_with_spec;
-                      forward_spec;
-                      forward_roots_spec;
-                      do_scan_spec;
-                      do_generation_spec;
-                      create_space_spec;
-                      create_heap_spec;
-                      make_tinfo_spec;
-                      resume_spec;
-                      garbage_collect_spec;
-                      reset_heap_spec;
-                      free_heap_spec])).
-Defined.
 
-Lemma body_do_scan: semax_body Vprog Gprog f_do_scan do_scan_spec.
+
+Lemma foo: True.
 Proof.
-  start_function.
-  forward.
-  forward_loop (EX n: nat, EX g': LGraph, EX t_info': thread_info,
-                PROP (super_compatible (g', t_info', roots) f_info outlier;
-                      forward_condition g' t_info' from to;
-                      thread_info_relation t_info t_info';
-                      closure_has_index g' to (to_index + n);
-                      scan_vertex_while_loop from to (nat_seq to_index n) g g')
-                LOCAL
-                (temp _s (offset_val (- WORD_SIZE)
-                                     (vertex_address g' (to, (to_index + n)%nat)));
-                 temp _from_start (gen_start g' from);
-                 temp _from_limit (limit_address g' t_info' from);
-                 temp _next (next_address t_info' to))
-                SEP (all_string_constants rsh gv; fun_info_rep rsh f_info fi;
-               outlier_rep outlier; graph_rep g'; thread_info_rep sh t_info' ti))
-  break: (EX g' : LGraph, EX t_info' : thread_info,
-          PROP (super_compatible (g', t_info', roots) f_info outlier;
-                forward_condition g' t_info' from to;
-                do_scan_relation from to to_index g g';
-                thread_info_relation t_info t_info')
-          LOCAL ()
-          SEP (all_string_constants rsh gv; fun_info_rep rsh f_info fi;
-               outlier_rep outlier; graph_rep g'; thread_info_rep sh t_info' ti)).
-  -
- Exists O g t_info.
-destruct H as [? [? [? ?]]].
-    replace (to_index + 0)%nat with to_index by lia.
-entailer!.
-    split; [|split]; [red; auto | apply tir_id | constructor].
-  -
- Intros n g' t_info'.
-remember (to_index + n)%nat as index.
-    unfold next_address, thread_info_rep.
-Intros.
-    unfold heap_struct_rep.
-destruct H5 as [? [? [? ?]]].
-    destruct H6 as [? [? [? [? ?]]]].
-    assert (0 <= Z.of_nat to < 12).
-{
-      clear -H5 H14.
-destruct H5 as [_ [_ ?]].
-red in H14.
-      pose proof (spaces_size (ti_heap t_info')).
-      rewrite Zlength_correct in H0.
-rep_lia.
-}
-    destruct (gt_gs_compatible _ _ H5 _ H14) as [? [? ?]].
-rewrite nth_space_Znth in *.
-    remember (Znth (Z.of_nat to) (spaces (ti_heap t_info'))) as sp_to.
-    assert (isptr (space_start sp_to)) by (rewrite <- H18; apply start_isptr).
-    remember (map space_tri (spaces (ti_heap t_info'))).
-    assert (@Znth (val * (val * val)) (Vundef, (Vundef, Vundef))
-                  (Z.of_nat to) l = space_tri sp_to).
-{
-      subst l sp_to.
-now rewrite Znth_map by (rewrite spaces_size; rep_lia).
-}
-    forward; rewrite H22; unfold space_tri.
-1: entailer!.
-    unfold vertex_address, vertex_offset.
-rewrite offset_offset_val.
-    simpl vgeneration; simpl vindex.
-    replace (WORD_SIZE * (previous_vertices_size g' to index + 1) + - WORD_SIZE) with
-        (WORD_SIZE * (previous_vertices_size g' to index))%Z by rep_lia.
-    unfold gen_start at 1.
-rewrite if_true by assumption.
-rewrite H18.
-    remember (WORD_SIZE * used_space sp_to)%Z as used_offset.
-    remember (WORD_SIZE * previous_vertices_size g' to index)%Z as index_offset.
-    freeze [0; 1; 2; 4; 5] FR.
-    gather_SEP (graph_rep g') (heap_rest_rep (ti_heap t_info')).
-    assert (
-        forall b i,
-          Vptr b i = space_start sp_to ->
-          graph_rep g' * heap_rest_rep (ti_heap t_info') |--
-      !! (WORD_SIZE * total_space sp_to + Ptrofs.unsigned i <= Ptrofs.max_unsigned)).
-{
-      intros.
-sep_apply (graph_and_heap_rest_data_at_ _ _ _ H14 H5).
-      assert (space_start sp_to = gen_start g' to) by
-          (unfold gen_start; rewrite if_true by assumption;
-           rewrite <- H18; reflexivity).
-rewrite H24 in H23.
-      sep_apply (generation_data_at__ptrofs g' t_info' to b i H23).
-      unfold gen_size; rewrite nth_space_Znth; entailer!.
-}
-    assert_PROP (force_val
-                   (sem_cmp_pp Clt (offset_val index_offset (space_start sp_to))
-                               (offset_val used_offset (space_start sp_to))) =
-                 Vint (if if zlt index_offset used_offset then true else false
-                       then Int.one else Int.zero)).
-{
-      remember (space_start sp_to).
-destruct v; try contradiction.
-inv_int i.
-      specialize (H23 b (Ptrofs.repr ofs) eq_refl).
-      rewrite Ptrofs.unsigned_repr in H23 by rep_lia.
-sep_apply H23.
-Intros.
-      assert (0 <= ofs + used_offset <= Ptrofs.max_unsigned).
-{
-        subst.
-        pose proof (space_order (Znth (Z.of_nat to) (spaces (ti_heap t_info')))).
-        unfold WORD_SIZE in *.
-rep_lia.
-}
-      assert (0 <= ofs + index_offset <= Ptrofs.max_unsigned).
-{
-        subst.
-red in H8.
-pose proof (pvs_ge_zero g' to (to_index + n)%nat).
-        pose proof (pvs_mono g' to _ _ H8).
-unfold WORD_SIZE in *.
-rep_lia.
-}
-      apply prop_right.
-      rewrite force_sem_cmp_pp; [|rewrite isptr_offset_val; assumption..].
-      simpl.
-rewrite !ptrofs_add_repr, if_true.
-2: reflexivity.
-      unfold Ptrofs.ltu.
-rewrite !Ptrofs.unsigned_repr; auto.
-f_equal.
-      if_tac; if_tac; try reflexivity; lia.
-}
-    forward_if (gen_has_index g' to index).
-    +
- remember (Znth (Z.of_nat to) (spaces (ti_heap t_info'))) as sp_to.
-      sep_apply (graph_and_heap_rest_data_at_ _ _ _ H14 H5).
-      unfold generation_data_at_.
-      assert (gen_start g' to = space_start sp_to) by
-          (subst; unfold gen_start; rewrite if_true; assumption).
-rewrite H31.
-      rewrite data_at__memory_block.
-Intros.
-rewrite sizeof_tarray_int_or_ptr.
-      2: unfold gen_size; apply total_space_range.
-      remember (WORD_SIZE * used_space sp_to)%Z as used_offset.
-      remember (to_index + n)%nat as index.
-      remember (WORD_SIZE * previous_vertices_size g' to index)%Z as index_offset.
-      destruct (space_start sp_to); try contradiction.
-simpl.
-unfold test_order_ptrs.
-      simpl.
-case (peq b b); intros.
-2: contradiction.
-simpl.
-      assert (sepalg.nonidentity (nth_sh g' to)).
-{
-        apply readable_nonidentity, writable_readable_share.
-unfold nth_sh.
-        apply generation_share_writable.
-}
-      assert (forall offset,
-                 0 <= offset <= used_offset ->
-                 memory_block (nth_sh g' to) (WORD_SIZE * gen_size t_info' to)
-                              (Vptr b i) * TT * FRZL FR |--
-        weak_valid_pointer (Vptr b (Ptrofs.add i (Ptrofs.repr offset)))).
-{
-        intros.
-change (Vptr b (Ptrofs.add i (Ptrofs.repr offset))) with
-            (offset_val offset (Vptr b i)).
-        sep_apply (memory_block_weak_valid_pointer
-                     (nth_sh g' to) (WORD_SIZE * gen_size t_info' to)
-                     (Vptr b i) offset); auto.
-        3: apply extend_weak_valid_pointer.
-        -
- subst.
-unfold gen_size.
-split.
-1: apply (proj1 H34).
-          transitivity (WORD_SIZE * used_space (nth_space t_info' to))%Z.
-          +
- rewrite nth_space_Znth.
-apply (proj2 H34).
-          +
- apply Zmult_le_compat_l.
-apply (proj2 (space_order _)).
-            unfold WORD_SIZE.
-lia.
-        -
- clear -H3 H7.
-destruct H7 as [? [? ?]].
-          rewrite <- H0.
-unfold WORD_SIZE.
-lia.
-}
-      apply andp_right; apply H34.
-      *
- subst.
-split.
-        1: pose proof (pvs_ge_zero g' to (to_index + n)%nat); unfold WORD_SIZE; lia.
-        apply Zmult_le_compat_l.
-2: unfold WORD_SIZE; lia.
-rewrite <- H20.
-        apply pvs_mono.
-assumption.
-      *
- split; [|lia]; subst; apply Z.mul_nonneg_nonneg;
-                                  [unfold WORD_SIZE; lia | apply space_order].
-    +
- assert (index_offset < used_offset).
-{
-        destruct (zlt index_offset used_offset); trivial.
-        try solve [
-           match type of H24 with force_val ?x = _ => destruct x; simpl in H24; subst; easy end];
-
-            rewrite H24 in H25; unfold typed_true in H25; easy.
-}
-      forward.
-entailer!.
-red.
-rewrite <- H20 in H26.
-      rewrite <- Z.mul_lt_mono_pos_l in H26 by (unfold WORD_SIZE; lia).
-      apply pvs_lt_rev in H26.
-assumption.
-    +
- assert (~ index_offset < used_offset).
-{
-        destruct (zlt index_offset used_offset); trivial.
-        try solve [
-           match type of H24 with force_val ?x = _ => destruct x; simpl in H24; subst; easy end];
-
-        now rewrite H24 in H25; unfold typed_false in H25.
-}
-      forward.
-thaw FR.
-unfold thread_info_rep, heap_struct_rep.
-      Exists g' t_info'.
-unfold forward_condition.
-entailer!.
-      split; [red; auto | exists n; split; trivial].
-      unfold gen_has_index.
-rewrite <- H20 in H26.
-      rewrite <- Z.mul_lt_mono_pos_l in H26 by (unfold WORD_SIZE; lia).
-      intro; apply H26.
-now apply pvs_mono_strict.
-    +
- clear H8 H23 H24.
-Intros.
-thaw FR.
-freeze [1;2;3;4;5;6] FR.
-      assert (graph_has_v g' (to, index)) by easy.
-
-      localize [vertex_rep (nth_sh g' to) g' (to, index)].
-      assert (readable_share (nth_sh g' to)) by
-          (unfold nth_sh; apply writable_readable_share, generation_share_writable).
-      unfold vertex_rep, vertex_at.
-Intros.
-      assert (offset_val (- WORD_SIZE) (vertex_address g' (to, index)) =
-              offset_val index_offset (space_start sp_to)).
-{
-        unfold vertex_address.
-rewrite offset_offset_val.
-unfold vertex_offset.
-        simpl vgeneration.
-simpl vindex.
-        replace (WORD_SIZE * (previous_vertices_size g' to index + 1) + - WORD_SIZE)
-          with index_offset by rep_lia.
-        f_equal.
-unfold gen_start.
-        rewrite if_true by assumption; now rewrite H18.
-}
-      rewrite H25.
-forward.
-rewrite <- H25.
-      gather_SEP (data_at _ _ _ _) (data_at _ _ _ _).
-      replace_SEP 0 (vertex_rep (nth_sh g' to) g' (to, index)) by
-          (unfold vertex_rep, vertex_at; entailer!).
-
-Fail
-      unlocalize [graph_rep g'];
-        [ apply graph_vertex_ramif_stable; assumption | ].
+  eassert (
+  forall (Espec : OracleKind) (rsh sh : share) (gv : globals) (fi ti : val)
+         (_ : LGraph) (_ : thread_info) (f_info : fun_info) (_ : roots_t) (outlier : outlier_t)
+         (from to _ : nat) (Delta_specs : Maps.PTree.t funspec) (Delta : tycontext)
+         (g' : LGraph) (t_info' : thread_info) (index : nat) (sp_to : space)
+         (l : list (@reptype CompSpecs space_type)) (used_offset index_offset : Z)
+         (FR : list mpred) (_ : graph_has_v g' (@pair nat nat to index)) (RamL RamG : list mpred)
+         (POSTCONDITION : ret_assert) (MORE_COMMANDS : statement),
+    @semax CompSpecs Espec Delta
+      (@PROPx environ (@nil Prop)
+         (LOCALx
+            (@cons localdef (temp _hd (Z2val (make_header g' (@pair nat nat to index))))
+               (@cons localdef (temp _t'1 (offset_val used_offset (space_start sp_to)))
+                  (@cons localdef
+                     (temp _s
+                        (offset_val (Z.opp WORD_SIZE) (vertex_address g' (@pair nat nat to index))))
+                     (@cons localdef (temp _from_start (gen_start g' from))
+                        (@cons localdef (temp _from_limit (limit_address g' t_info' from))
+                           (@cons localdef
+                              (temp _next
+                                 (@field_address CompSpecs heap_type
+                                    (@cons gfield (StructField _next)
+                                       (@cons gfield (ArraySubsc (Z.of_nat to))
+                                          (@cons gfield (StructField _spaces) (@nil gfield))))
+                                    (ti_heap_p t_info'))) (@nil localdef)))))))
+            (@SEPx environ
+               (@cons mpred (vertex_rep (nth_sh g' to) g' (@pair nat nat to index))
+                  (@cons mpred (@Freezer.FRZR RamL RamG _)
+                     (@cons mpred (Freezer.FRZL FR) (@nil mpred)))))))
+      (Ssequence
+         (Ssequence
+            (Sset _sz
+               (Ecast
+                  (Ebinop Oshr (Etempvar _hd tulong)
+                     (Econst_int (Int.repr (Zpos (xO (xI (xO xH))))) tint) tulong) tulong))
+            (Ssequence
+               (Sset _tag
+                  (Ecast
+                     (Ebinop Oand (Etempvar _hd tulong)
+                        (Econst_int (Int.repr (Zpos (xI (xI (xI (xI (xI (xI (xI xH))))))))) tint)
+                        tulong) tuint))
+               (Ssequence
+                  (Sifthenelse
+                     (Eunop Onotbool
+                        (Ebinop Oge (Etempvar _tag tint)
+                           (Econst_int (Int.repr (Zpos (xI (xI (xO (xI (xI (xI (xI xH))))))))) tint)
+                           tint) tint)
+                     (Sfor (Sset _j (Ecast (Econst_int (Int.repr (Zpos xH)) tint) tlong))
+                        (Ebinop Ole (Etempvar _j tlong) (Etempvar _sz tulong) tint)
+                        (Scall (@None ident)
+                           (Evar _forward
+                              (Tfunction
+                                 (Tcons
+                                    (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH))))))
+                                    (Tcons
+                                       (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH))))))
+                                       (Tcons
+                                          (tptr
+                                             (tptr
+                                                (Tpointer tvoid
+                                                   (mk_attr false (@Some N (Npos (xI xH)))))))
+                                          (Tcons
+                                             (tptr
+                                                (Tpointer tvoid
+                                                   (mk_attr false (@Some N (Npos (xI xH))))))
+                                             (Tcons tint Tnil))))) tvoid cc_default))
+                           (@cons expr
+                              (Etempvar _from_start
+                                 (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH)))))))
+                              (@cons expr
+                                 (Etempvar _from_limit
+                                    (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH)))))))
+                                 (@cons expr
+                                    (Etempvar _next
+                                       (tptr
+                                          (tptr
+                                             (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH))))))))
+                                    (@cons expr
+                                       (Ebinop Oadd
+                                          (Ecast
+                                             (Etempvar _s
+                                                (tptr
+                                                   (Tpointer tvoid
+                                                      (mk_attr false (@Some N (Npos (xI xH)))))))
+                                             (tptr
+                                                (Tpointer tvoid
+                                                   (mk_attr false (@Some N (Npos (xI xH)))))))
+                                          (Etempvar _j tlong)
+                                          (tptr
+                                             (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH)))))))
+                                       (@cons expr (Econst_int (Int.repr Z0) tint) (@nil expr)))))))
+                        (Sset _j
+                           (Ebinop Oadd (Etempvar _j tlong) (Econst_int (Int.repr (Zpos xH)) tint)
+                              tlong))) Sskip)
+                  (Sset _s
+                     (Ebinop Oadd
+                        (Etempvar _s (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH)))))))
+                        (Ebinop Oadd (Econst_int (Int.repr (Zpos xH)) tint)
+                           (Etempvar _sz tulong) tulong)
+                        (tptr (Tpointer tvoid (mk_attr false (@Some N (Npos (xI xH)))))))))))
+         MORE_COMMANDS) POSTCONDITION).
+  2:give_up.
+  intros Espec rsh sh gv fi ti g t_info f_info roots outlier from to to_index Delta_specs Delta g' t_info' index sp_to l used_offset index_offset FR H23 RamL RamG POSTCONDITION MORE_COMMANDS.
 
 eapply (unlocalize_triple [graph_rep g']); [ prove_split_FRZ_in_SEP | | ].
 {
@@ -1108,4 +717,3 @@ clear.
 refine (ex_intro _ _ eq_refl).
 
 Check J.
-Check H23.
