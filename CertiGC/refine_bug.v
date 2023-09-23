@@ -1,96 +1,382 @@
 (* -*- mode: coq; coq-prog-args: ("-emacs" "-w" "-overriding-logical-loadpath" "-w" "-deprecated-native-compiler-option,-native-compiler-disabled" "-native-compiler" "ondemand" "-Q" "/github/workspace/cwd" "Top" "-Q" "/github/workspace/CertiGraph/lib" "CertiGraph.lib" "-Q" "/github/workspace/CertiGraph/msl_ext" "CertiGraph.msl_ext" "-Q" "/github/workspace/CertiGraph/msl_application" "CertiGraph.msl_application" "-Q" "/github/workspace/CertiGraph/graph" "CertiGraph.graph" "-Q" "/github/workspace/CertiGraph/heap_model_direct" "CertiGraph.heap_model_direct" "-Q" "/github/workspace/CertiGraph" "CertiGraph" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/VST" "VST" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/compcert" "compcert" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Bignums" "Bignums" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Flocq" "Flocq" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Ltac2" "Ltac2" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/MenhirLib" "MenhirLib" "-top" "CertiGraph.CertiGC.refine_bug") -*- *)
-(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines *)
+(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines, then from 1008 lines to 924 lines, then from 937 lines to 1221 lines, then from 1226 lines to 942 lines, then from 955 lines to 1291 lines, then from 1296 lines to 984 lines, then from 997 lines to 1278 lines, then from 1282 lines to 1088 lines, then from 1101 lines to 1553 lines, then from 1557 lines to 1167 lines, then from 1180 lines to 1495 lines, then from 1500 lines to 1176 lines, then from 1189 lines to 1340 lines, then from 1343 lines to 1218 lines, then from 1231 lines to 3579 lines, then from 3574 lines to 1250 lines, then from 1263 lines to 1367 lines, then from 1372 lines to 1266 lines *)
 (* coqc version 8.17.1 compiled with OCaml 4.13.1
    coqtop version 8.17.1
-   Expected coqc runtime on this file: 1.345 sec *)
-Require Coq.Init.Ltac.
-Require Coq.Logic.ProofIrrelevance.
-Require Coq.Setoids.Setoid.
-Require Coq.Classes.Morphisms.
-Require Coq.Classes.Equivalence.
-Require Coq.Sets.Ensembles.
-Require Coq.Sets.Constructive_sets.
-Require Coq.Relations.Relation_Definitions.
-Require Coq.Lists.List.
-Require Coq.Program.Basics.
-Require CertiGraph.lib.Coqlib.
-Require Coq.Classes.EquivDec.
-Require CertiGraph.lib.EquivDec_ext.
-Require CertiGraph.lib.Ensembles_ext.
-Require Coq.micromega.Lia.
-Require Coq.Sorting.Permutation.
-Require Coq.ZArith.ZArith_base.
-Require Coq.ZArith.Zcomplements.
-Require Coq.Logic.FunctionalExtensionality.
-Require Coq.ZArith.ZArith.
-Require Coq.ZArith.Znumtheory.
-Require VST.zlist.sublist.
-Require Coq.Logic.PropExtensionality.
-Require VST.zlist.Zlength_solver.
-Require Coq.Sorting.Sorted.
-Require VST.zlist.list_solver.
-Require CertiGraph.lib.List_ext.
-Require CertiGraph.lib.Relation_ext.
-Require CertiGraph.lib.Equivalence_ext.
-Require CertiGraph.lib.List_Func_ext.
-Require CertiGraph.lib.relation_list.
+   Expected coqc runtime on this file: 1.422 sec *)
 Require CertiGraph.graph.graph_model.
-Require Coq.Lists.ListSet.
-Require compcert.common.AST.
-Require compcert.common.Values.
-Require compcert.common.Memory.
-Require compcert.common.Globalenvs.
-Require compcert.lib.Maps.
 Require VST.sepcomp.extspec.
-Require Coq.Arith.EqNat.
-Require Coq.Relations.Relations.
-Require compcert.lib.Axioms.
-Require compcert.lib.Coqlib.
-Require compcert.lib.Integers.
-Require compcert.lib.Floats.
-Require compcert.common.Memdata.
-Require compcert.common.Memtype.
-Require Coq.Logic.ClassicalFacts.
-Require VST.msl.Axioms.
-Require Coq.Logic.EqdepFacts.
-Require VST.msl.Extensionality.
-Require Coq.Bool.Bool.
-Require VST.msl.base.
-Require VST.msl.Coqlib2.
-Require VST.msl.eq_dec.
-Require Coq.Logic.ConstructiveEpsilon.
-Require VST.veric.coqlib4.
-Require VST.veric.base.
-Require VST.sepcomp.Address.
-Require VST.veric.Memory.
-Require Coq.funind.Recdef.
-Require Coq.Wellfounded.Wellfounded.
-Require VST.msl.ageable.
-Require VST.msl.sepalg.
-Require VST.msl.sepalg_generators.
-Require VST.msl.age_sepalg.
-Require Coq.Structures.GenericMinMax.
-Require VST.msl.boolean_alg.
-Require VST.msl.functors.
-Require Coq.Classes.RelationClasses.
-Require VST.veric.juicy_mem.
-Require VST.veric.mpred.
-Require VST.msl.ghost_seplog.
-Require VST.msl.alg_seplog.
+Require VST.veric.compcert_rmaps.
 Require compcert.export.Clightdefs.
 Export VST.veric.base.
-Import VST.veric.compcert_rmaps.
+Export VST.veric.rmaps.
+Export VST.veric.compcert_rmaps.
 
  
+Export Mem.
+Module Export VST_DOT_veric_DOT_juicy_base.
+Module Export VST.
+Module Export veric.
+Module Export juicy_base.
+End juicy_base.
+
+End veric.
+
+End VST.
+
+End VST_DOT_veric_DOT_juicy_base.
+Import VST.veric.shares.
+Import compcert.lib.Maps.
+Definition perm_of_sh (sh: Share.t): option permission.
+Admitted.
+Definition contents_at (m: mem) (loc: address) : memval.
+Admitted.
+
+Definition contents_cohere (m: mem) (phi: rmap) :=
+  forall rsh sh v loc pp, phi @ loc = YES rsh sh (VAL v) pp -> contents_at m loc = v /\ pp=NoneP.
+
+Definition perm_of_res (r: resource) :=
+
+ match r with
+ | NO sh _ => if eq_dec sh Share.bot then None else Some Nonempty
+ | PURE _ _ => Some Nonempty
+ | YES sh rsh (VAL _) _ => perm_of_sh sh
+ | YES sh rsh _ _ => Some Nonempty
+ end.
+
+Definition perm_of_res' (r: resource) :=
+
+ match r with
+ | NO sh _ => if eq_dec sh Share.bot then None else Some Nonempty
+ | PURE _ _ => Some Nonempty
+ | YES sh _ _ _ => perm_of_sh sh
+ end.
+
+Definition access_cohere (m: mem)  (phi: rmap) :=
+  forall loc,  access_at m loc Cur = perm_of_res (phi @ loc).
+
+Definition max_access_at m loc := access_at m loc Max.
+
+Definition max_access_cohere (m: mem) (phi: rmap)  :=
+  forall loc,
+    perm_order'' (max_access_at m loc) (perm_of_res' (phi @ loc)).
+
+Definition alloc_cohere (m: mem) (phi: rmap) :=
+ forall loc,  (fst loc >= nextblock m)%positive -> phi @ loc = NO Share.bot bot_unreadable.
+
+Inductive juicy_mem: Type :=
+  mkJuicyMem: forall (m: mem) (phi: rmap)
+    (JMcontents: contents_cohere m phi)
+    (JMaccess: access_cohere m phi)
+    (JMmax_access: max_access_cohere m phi)
+    (JMalloc: alloc_cohere m phi),
+       juicy_mem.
+
+Section selectors.
+Variable (j: juicy_mem).
+Definition m_dry := match j with mkJuicyMem m _ _ _ _ _ => m end.
+Definition m_phi := match j with mkJuicyMem _ phi _ _ _ _ => phi end.
+End selectors.
+#[export] Instance juicy_mem_ageable: ageable juicy_mem.
+Admitted.
+
+#[export] Program Instance juicy_mem_ord: Ext_ord juicy_mem :=
+  { ext_order a b := m_dry a = m_dry b /\ ext_order (m_phi a) (m_phi b) }.
+Admit Obligations.
+
+Module VST_DOT_veric_DOT_lift_WRAPPED.
+Module Export lift.
+
+Structure Lift := mkLift {
+         lift_S: Type;
+         lift_T: Type;
+         lift_prod : Type;
+         lift_last: Type;
+         lifted:> Type;
+         lift_curry: lift_T -> lift_prod -> lift_last;
+         lift_uncurry_open: ((lift_S -> lift_prod) -> (lift_S -> lift_last)) -> lifted
+}.
+
+Definition Tend (S: Type) (A: Type) :=
+    mkLift S A unit A
+          (S -> A)
+          (fun f _ => f)
+          (fun f => f (fun _: S => tt)).
+Canonical Structure Tarrow (A: Type) (H: Lift) :=
+    mkLift (lift_S H)
+      (A -> lift_T H)
+      (prod A (lift_prod H))
+      (lift_last H)
+      ((lift_S H -> A) -> lifted H)
+      (fun f x => match x with (x1,x2) => lift_curry H (f x1) x2 end)
+      (fun f x => lift_uncurry_open H (fun y: lift_S H -> lift_prod H => f (fun z => (x z, y z)))).
+Definition liftx {H: Lift} (f: lift_T H) : lifted H.
+Admitted.
+
+Module Export LiftNotation.
+Notation "'`' x" := (liftx x) (at level 10, x at next level).
+
+Notation "'`(' x ')'" := (liftx (x : _)).
+End LiftNotation.
+
+End lift.
+
+End VST_DOT_veric_DOT_lift_WRAPPED.
+Module Export VST.
+Module Export veric.
+Module lift.
+Include VST_DOT_veric_DOT_lift_WRAPPED.lift.
+End lift.
+Definition force_val (v: option val) : val.
+Admitted.
+
+Definition force_val1 (f: val -> option val) (v: val) := force_val (f v).
+Definition force_val2 (f: val -> val -> option val) (v1 v2: val) := force_val (f v1 v2).
+Definition offset_val (ofs: Z) (v: val) : val.
+Admitted.
+
+Definition isptr v :=
+   match v with | Vptr _ _ => True | _ => False end.
+Module Export mpred.
+Import VST.veric.composite_compute.
+Export VST.veric.compspecs.
+
+Set Implicit Arguments.
+Module Export Map.
+Section map.
+Variables (B : Type).
+
+Definition t := positive -> option B.
+Definition get (h: t) (a:positive) : option B.
+Admitted.
+
+End map.
+
+End Map.
+Unset Implicit Arguments.
+
+Section FUNSPEC.
+
+Definition genviron := Map.t block.
+
+Definition venviron := Map.t (block * type).
+
+Definition tenviron := Map.t val.
+
+Inductive environ : Type :=
+ mkEnviron: forall (ge: genviron) (ve: venviron) (te: tenviron), environ.
+Definition ge_of (rho: environ) : genviron.
+Admitted.
+Definition te_of (rho: environ) : tenviron.
+Admitted.
+
+Definition mpred := pred rmap.
+
+Definition argsEnviron:Type := genviron * (list val).
+Definition AssertTT (A: TypeTree): TypeTree.
+exact (ArrowType A (ArrowType (ConstType environ) Mpred)).
+Defined.
+Definition ArgsTT (A: TypeTree): TypeTree.
+exact (ArrowType A (ArrowType (ConstType argsEnviron) Mpred)).
+Defined.
+Definition super_non_expansive {A: TypeTree}
+  (P: forall ts, dependent_type_functor_rec ts (AssertTT A) mpred): Prop.
+Admitted.
+Definition args_super_non_expansive {A: TypeTree}
+  (P: forall ts, dependent_type_functor_rec ts (ArgsTT A) mpred): Prop.
+Admitted.
+
+Inductive funspec :=
+   mk_funspec: typesig -> calling_convention -> forall (A: TypeTree)
+     (P: forall ts, dependent_type_functor_rec ts (ArgsTT A) mpred)
+     (Q: forall ts, dependent_type_functor_rec ts (AssertTT A) mpred)
+     (P_ne: args_super_non_expansive P) (Q_ne: super_non_expansive Q),
+     funspec.
+
+End FUNSPEC.
+
+Definition assert := environ -> mpred.
+
+Arguments sizeof {env} !t / .
+Arguments alignof {env} !t / .
+
+Arguments complete_legal_cosu_type {cenv} !t / .
+Fixpoint typelist_of_type_list (params : list type) : typelist.
+Admitted.
+
+Definition eval_id (id: ident) (rho: environ) := force_val (Map.get (te_of rho) id).
+Definition env_set (rho: environ) (x: ident) (v: val) : environ.
+Admitted.
+
+Import VST.veric.lift.
+Canonical Structure LiftEnviron := Tend environ.
+
+End mpred.
+
+Class NatDed (A: Type) := mkNatDed {
+  andp: A -> A -> A;
+  orp: A -> A -> A;
+  exp: forall {T:Type}, (T -> A) -> A;
+  allp: forall {T:Type}, (T -> A) -> A;
+  imp: A -> A -> A;
+  prop: Prop -> A;
+  derives: A -> A -> Prop;
+  pred_ext: forall P Q, derives P Q -> derives Q P -> P=Q;
+  derives_refl: forall P, derives P P;
+  derives_trans: forall P Q R, derives P Q -> derives Q R -> derives P R;
+  TT := prop True;
+  FF := prop False;
+  andp_right:  forall X P Q:A, derives X P -> derives X Q -> derives X (andp P Q);
+  andp_left1:  forall P Q R:A, derives P R -> derives (andp P Q) R;
+  andp_left2:  forall P Q R:A, derives Q R -> derives (andp P Q) R;
+  orp_left: forall P Q R, derives P R -> derives Q R -> derives (orp P Q) R;
+  orp_right1: forall P Q R, derives P Q -> derives P (orp Q R);
+  orp_right2: forall P Q R, derives P R -> derives P (orp Q R);
+  exp_right: forall {B: Type} (x:B) (P: A) (Q: B -> A),
+                        derives P (Q x) -> derives P (exp Q);
+  exp_left: forall {B: Type} (P: B -> A) (Q: A),
+                      (forall x, derives (P x) Q) -> derives (exp P) Q;
+  allp_left: forall {B}(P: B -> A) x Q, derives (P x) Q -> derives (allp P) Q;
+  allp_right: forall {B}(P: A) (Q: B -> A),  (forall v, derives P (Q v)) -> derives P (allp Q);
+  imp_andp_adjoint: forall P Q R, derives (andp P Q) R <-> derives P (imp Q R);
+  prop_left: forall (P: Prop) Q, (P -> derives TT Q) -> derives (prop P) Q;
+  prop_right: forall (P: Prop) Q, P -> derives Q (prop P);
+  prop_imp_prop_left: forall (P Q: Prop), derives (imp (prop P) (prop Q)) (prop (P -> Q));
+  allp_prop_left: forall {B: Type} (P: B -> Prop), derives (allp (fun b => prop (P b))) (prop (forall b, P b))
+
+}.
+
+#[global] Program Instance LiftNatDed (A B: Type) {ND: NatDed B} : NatDed (A -> B) :=
+ mkNatDed (A -> B)
+      (fun P Q x => andp (P x) (Q x))
+      (fun P Q x => orp (P x) (Q x))
+      (fun T (F: T -> A -> B) (a: A) => exp (fun x => F x a))
+      (fun T (F: T -> A -> B) (a: A) => allp (fun x => F x a))
+      (fun P Q x => imp (P x) (Q x))
+      (fun P x => prop P)
+      (fun P Q => forall x, derives (P x) (Q x))
+     _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _.
+Admit Obligations.
+Delimit Scope logic with logic.
+Local Open Scope logic.
+Notation "P '|--' Q" := (derives P%logic Q%logic) (at level 80, no associativity) : logic_derives.
+Open Scope logic_derives.
+Notation "'EX' x .. y , P " :=
+  (exp (fun x => .. (exp (fun y => P%logic)) ..)) (at level 65, x binder, y binder, right associativity) : logic.
+Notation "'ALL' x .. y , P " :=
+  (allp (fun x => .. (allp (fun y => P%logic)) ..)) (at level 65, x binder, y binder, right associativity) : logic.
+Infix "||" := orp (at level 50, left associativity) : logic.
+Infix "&&" := andp (at level 40, left associativity) : logic.
+Notation "P '-->' Q" := (imp P Q) (at level 55, right associativity) : logic.
+Notation "'!!' e" := (prop e) (at level 15) : logic.
+
+Class SepLog (A: Type) {ND: NatDed A} := mkSepLog {
+  emp: A;
+  sepcon: A -> A -> A;
+  wand: A -> A -> A;
+  ewand: A -> A -> A;
+  sepcon_assoc: forall P Q R, sepcon (sepcon P Q) R = sepcon P (sepcon Q R);
+  sepcon_comm:  forall P Q, sepcon P Q = sepcon Q P;
+  wand_sepcon_adjoint: forall (P Q R: A),  (sepcon P Q |-- R) <-> (P |-- wand Q R);
+  sepcon_andp_prop: forall P Q R, sepcon P (!!Q && R) = !!Q && (sepcon P R);
+  sepcon_derives: forall P P' Q Q' : A, (P |-- P') -> (Q |-- Q') -> sepcon P Q |-- sepcon P' Q';
+
+  ewand_conflict: forall P Q R, (sepcon P Q |-- FF) -> andp P (ewand Q R) |-- FF
+}.
+
+Notation "P '*' Q" := (sepcon P Q) : logic.
+Notation "P '-*' Q" := (wand P Q) (at level 60, right associativity) : logic.
+
+#[global] Instance LiftSepLog (A B: Type) {NB: NatDed B}{SB: SepLog B} : SepLog (A -> B).
+Admitted.
+
+Class Indir (A: Type) {ND: NatDed A} := mkIndir {
+  later: A -> A;
+  now_later: forall P: A, P |-- later P;
+  later_K: forall P Q, later (P --> Q) |-- later P --> later Q;
+  later_allp: forall T (F: T -> A),  later (allp F) = ALL x:T, later (F x);
+  later_exp: forall T (F: T-> A), EX x:T, later (F x) |-- later (exp F);
+  later_exp': forall T (any:T) F, later (exp F) = EX x:T, later (F x);
+  later_exp'': forall T F, later (exp F) |-- (EX x:T, later (F x)) || later FF;
+
+  later_prop: forall PP: Prop, later (!! PP) |-- !! PP || later FF;
+  loeb: forall P,   (later P |-- P) ->  TT |-- P
+}.
+
+Notation "'|>' e" := (later e) (at level 20, right associativity): logic.
+
+#[global] Instance LiftIndir (A: Type) (B: Type)  {NB: NatDed B}{IXB: Indir B} :
+         @Indir (A -> B) (LiftNatDed A B).
+Admitted.
+Import VST.msl.ghost.
+Import Coq.Sets.Ensembles.
+Import Coq.Lists.List.
+
+Definition pred_infinite {N} (P : N -> Prop) := forall l, exists x, ~In x l /\ P x.
+
+Class BupdSepLog (A N D: Type) {ND: NatDed A}{SL: SepLog A} := mkBSL {
+  bupd: A -> A;
+  own: forall {RA: Ghost}, N -> G -> D -> A;
+  infinite_names: forall (l : list N), exists x, ~In x l;
+  bupd_intro: forall P, P |-- bupd P;
+  bupd_mono: forall P Q, (P |-- Q) -> bupd P |-- bupd Q;
+  bupd_trans: forall P, bupd (bupd P) |-- bupd P;
+  bupd_frame_r: forall P Q, bupd P * Q |-- bupd (P * Q);
+  own_alloc_strong: forall {RA: Ghost} P a pp, pred_infinite P -> valid a ->
+    emp |-- bupd (EX g: N, !!(P g) && own g a pp);
+  own_op: forall {RA: Ghost} g (a1 a2 a3: G) pp, join a1 a2 a3 ->
+    own g a3 pp = own g a1 pp * own g a2 pp;
+  own_valid_2: forall {RA: Ghost} g (a1 a2: G) pp,
+    own g a1 pp * own g a2 pp |-- !!valid_2 a1 a2;
+  own_update_ND: forall {RA: Ghost} g (a: G) B pp, fp_update_ND a B ->
+    own g a pp |-- bupd (EX b : _, !!(B b) && own g b pp);
+  own_dealloc: forall {RA: Ghost} g (a: G) pp,
+    own g a pp |-- emp
+  }.
+
+Declare Scope logic_upd.
+
+Open Scope logic_upd.
+
+#[global] Instance LiftBupdSepLog (A B N D: Type) {NB: NatDed B}{SB: SepLog B}{BSLB: BupdSepLog B N D} :
+  BupdSepLog (A -> B) N D.
+Admitted.
+
+Class FupdSepLog (A N D I: Type) {ND: NatDed A}{IA: Indir A}{SL: SepLog A}{BSL: BupdSepLog A N D} := mkFSL {
+  fupd: Ensemble I -> Ensemble I -> A -> A;
+  fupd_mask_union: forall E1 E2, Disjoint _ E1 E2 ->
+    emp |-- fupd (Union _ E1 E2) E2 (fupd E2 (Union _ E1 E2) emp);
+  except_0_fupd: forall E1 E2 P, ((|> FF) || fupd E1 E2 P) |-- fupd E1 E2 P;
+  fupd_mono: forall E1 E2 P Q, (P |-- Q) -> fupd E1 E2 P |-- fupd E1 E2 Q;
+  fupd_trans: forall E1 E2 E3 P, fupd E1 E2 (fupd E2 E3 P) |-- fupd E1 E3 P;
+  fupd_mask_frame_r': forall E1 E2 Ef P, Disjoint _ E1 Ef ->
+    fupd E1 E2 (!! (Disjoint _ E2 Ef) --> P) |-- fupd (Union _ E1 Ef) (Union _ E2 Ef) P;
+  fupd_frame_r: forall E1 E2 P Q, (fupd E1 E2 P) * Q |-- fupd E1 E2 (P * Q);
+  bupd_fupd: forall E P, bupd P |-- fupd E E P
+  }.
+Notation "|={ E }=> P" := (fupd E E P) (at level 99, E at level 50, P at level 200): logic_upd.
+
+#[global] Instance LiftFupdSepLog (A B N D I: Type) {NB: NatDed B}{IB: Indir B}{SB: SepLog B}{BSLB: BupdSepLog B N D}{FSLB: FupdSepLog B N D I} :
+  FupdSepLog (A -> B) N D I.
+Admitted.
+
+#[global] Instance algNatDed (T: Type){agT: ageable T}{EO: Ext_ord T} : NatDed (pred T).
+Admitted.
+
+#[global] Instance algSepLog (T: Type) {agT: ageable T}{JoinT: Join T}{PermT: Perm_alg T}{SepT: Sep_alg T}{AgeT: Age_alg T}{EO: Ext_ord T}{ET: Ext_alg T} :
+      @SepLog (pred T) (algNatDed T).
+Admitted.
+
+#[global] Instance algIndir (T: Type) {agT: ageable T}{JoinT: Join T}{PermT: Perm_alg T}{SepT: Sep_alg T}
+                {AgeT: Age_alg T}{EO: Ext_ord T}:
+         @Indir (pred T) (algNatDed T).
+Admitted.
+
+Export VST.veric.base.
 
 Program Definition noat (l: AV.address) : pred rmap :=
     fun m => identity (m @ l).
 Admit Obligations.
-
-Module Export VST_DOT_veric_DOT_own_WRAPPED.
 Module Export own.
-Import VST.msl.ghost.
-Import VST.veric.compcert_rmaps.
 Local Open Scope pred.
 
 Notation ghost_approx m := (ghost_fmap (approx (level m)) (approx (level m))).
@@ -115,23 +401,14 @@ Definition own {RA: Ghost} (n: gname) (a: G) (pp: preds) :=
   EX v : _, Own (singleton n (existT _ RA (exist _ a v), pp)).
 
 End own.
-Module Export VST.
-Module Export veric.
-Module Export own.
-Include VST_DOT_veric_DOT_own_WRAPPED.own.
-End own.
-Export VST.msl.ghost.
 
 Notation "|==> P" := (own.bupd P) (at level 99, P at level 200): pred.
-Export VST.veric.shares.
 Definition ext_ref {Z} (ora : Z) : {g : Ghost & {a : G | valid a}}.
 Admitted.
 Export compcert.export.Clightdefs.
 Export compcert.cfrontend.Ctypes.
 Export compcert.cfrontend.Cop.
 Export compcert.cfrontend.Clight.
-Import VST.veric.val_lemmas.
-Import compcert.lib.Maps.
 Definition eqb_option {A} (f: A -> A -> bool) (x y: option A) : bool.
 Admitted.
 Definition eqb_attr (a b: attr) : bool.
@@ -183,8 +460,6 @@ Definition tc_val (ty: type) : val -> Prop.
 Admitted.
 
 Definition tc_val' t v := v <> Vundef -> tc_val t v.
-Import VST.veric.compcert_rmaps.
-Import VST.veric.mpred.
 
 Section Invariants.
 
@@ -266,7 +541,6 @@ Record ret_assert : Type := {
  RA_return: option val -> environ->mpred
 }.
 Import VST.sepcomp.extspec.
-Import VST.veric.juicy_mem.
 
 Record juicy_ext_spec (Z: Type) := {
   JE_spec:> external_specification juicy_mem external_function Z;
@@ -297,7 +571,6 @@ Definition sem_binary_operation'
     {CS: compspecs} (op: Cop.binary_operation)
     (t1:type) (t2: type) : val -> val -> option val.
 Admitted.
-Import LiftNotation.
 
 Definition eval_unop (op: Cop.unary_operation) (t1 : type) :=
        force_val1 (Clight_Cop2.sem_unary_operation op t1).
@@ -386,12 +659,8 @@ Definition size_compatible {C: compspecs} t p :=
   | Vptr b i_ofs => Ptrofs.unsigned i_ofs + sizeof t < Ptrofs.modulus
   | _ => True
   end.
-Export VST.msl.seplog.
-Export VST.msl.ghost_seplog.
 Export VST.veric.composite_compute.
 Export VST.veric.align_mem.
-Import VST.veric.own.
-Import compcert.cfrontend.Ctypes.
 
 #[export] Program Instance Bveric: BupdSepLog mpred gname compcert_rmaps.RML.R.preds :=
   { bupd := bupd; own := @own }.
@@ -998,4 +1267,3 @@ clear.
 refine (ex_intro _ _ eq_refl).
 
 Check J.
-
