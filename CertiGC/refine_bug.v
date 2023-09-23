@@ -1,8 +1,8 @@
 (* -*- mode: coq; coq-prog-args: ("-emacs" "-w" "-overriding-logical-loadpath" "-w" "-deprecated-native-compiler-option,-native-compiler-disabled" "-native-compiler" "ondemand" "-Q" "/github/workspace/cwd" "Top" "-Q" "/github/workspace/CertiGraph/lib" "CertiGraph.lib" "-Q" "/github/workspace/CertiGraph/msl_ext" "CertiGraph.msl_ext" "-Q" "/github/workspace/CertiGraph/msl_application" "CertiGraph.msl_application" "-Q" "/github/workspace/CertiGraph/graph" "CertiGraph.graph" "-Q" "/github/workspace/CertiGraph/heap_model_direct" "CertiGraph.heap_model_direct" "-Q" "/github/workspace/CertiGraph" "CertiGraph" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/VST" "VST" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/compcert" "compcert" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Bignums" "Bignums" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Flocq" "Flocq" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Ltac2" "Ltac2" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/MenhirLib" "MenhirLib" "-top" "CertiGraph.CertiGC.refine_bug") -*- *)
-(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines *)
+(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines *)
 (* coqc version 8.17.1 compiled with OCaml 4.13.1
    coqtop version 8.17.1
-   Expected coqc runtime on this file: 1.613 sec *)
+   Expected coqc runtime on this file: 1.345 sec *)
 Require Coq.Init.Ltac.
 Require Coq.Logic.ProofIrrelevance.
 Require Coq.Setoids.Setoid.
@@ -27,25 +27,194 @@ Require Coq.ZArith.Znumtheory.
 Require VST.zlist.sublist.
 Require Coq.Logic.PropExtensionality.
 Require VST.zlist.Zlength_solver.
+Require Coq.Sorting.Sorted.
+Require VST.zlist.list_solver.
+Require CertiGraph.lib.List_ext.
+Require CertiGraph.lib.Relation_ext.
+Require CertiGraph.lib.Equivalence_ext.
+Require CertiGraph.lib.List_Func_ext.
+Require CertiGraph.lib.relation_list.
 Require CertiGraph.graph.graph_model.
+Require Coq.Lists.ListSet.
+Require compcert.common.AST.
+Require compcert.common.Values.
+Require compcert.common.Memory.
+Require compcert.common.Globalenvs.
+Require compcert.lib.Maps.
 Require VST.sepcomp.extspec.
+Require Coq.Arith.EqNat.
+Require Coq.Relations.Relations.
+Require compcert.lib.Axioms.
+Require compcert.lib.Coqlib.
+Require compcert.lib.Integers.
+Require compcert.lib.Floats.
+Require compcert.common.Memdata.
+Require compcert.common.Memtype.
+Require Coq.Logic.ClassicalFacts.
+Require VST.msl.Axioms.
+Require Coq.Logic.EqdepFacts.
+Require VST.msl.Extensionality.
+Require Coq.Bool.Bool.
+Require VST.msl.base.
+Require VST.msl.Coqlib2.
+Require VST.msl.eq_dec.
+Require Coq.Logic.ConstructiveEpsilon.
+Require VST.veric.coqlib4.
+Require VST.veric.base.
+Require VST.sepcomp.Address.
+Require VST.veric.Memory.
+Require Coq.funind.Recdef.
+Require Coq.Wellfounded.Wellfounded.
+Require VST.msl.ageable.
+Require VST.msl.sepalg.
+Require VST.msl.sepalg_generators.
+Require VST.msl.age_sepalg.
+Require Coq.Structures.GenericMinMax.
+Require VST.msl.boolean_alg.
+Require VST.msl.functors.
+Require Coq.Classes.RelationClasses.
 Require VST.veric.juicy_mem.
-Require VST.veric.ghost_PCM.
-Require VST.veric.Clight_base.
-Require VST.veric.Cop2.
-Require VST.veric.fupd.
-Import VST.veric.rmaps.
+Require VST.veric.mpred.
+Require VST.msl.ghost_seplog.
+Require VST.msl.alg_seplog.
+Require compcert.export.Clightdefs.
+Export VST.veric.base.
 Import VST.veric.compcert_rmaps.
-Import VST.veric.res_predicates.
-Import VST.veric.mpred.
-Import VST.veric.Cop2.
-Import VST.veric.invariants.
-Import VST.veric.fupd.
-Import compcert.lib.Maps.
-
-Local Open Scope pred.
 
  
+
+Program Definition noat (l: AV.address) : pred rmap :=
+    fun m => identity (m @ l).
+Admit Obligations.
+
+Module Export VST_DOT_veric_DOT_own_WRAPPED.
+Module Export own.
+Import VST.msl.ghost.
+Import VST.veric.compcert_rmaps.
+Local Open Scope pred.
+
+Notation ghost_approx m := (ghost_fmap (approx (level m)) (approx (level m))).
+
+Program Definition ghost_is g: pred rmap :=
+  fun m => join_sub (ghost_approx m g) (ghost_of m).
+Admit Obligations.
+
+Definition Own g: pred rmap := allp noat && ghost_is g.
+
+Program Definition bupd (P: pred rmap): pred rmap :=
+  fun m => forall c, joins (ghost_of m) (ghost_approx m c) ->
+    exists b, joins b (ghost_approx m c) /\
+    exists m', level m' = level m /\ resource_at m' = resource_at m /\ ghost_of m' = b /\ P m'.
+Admit Obligations.
+
+Definition singleton {A} k (x : A) : list (option A) := repeat None k ++ Some x :: nil.
+
+Definition gname := nat.
+
+Definition own {RA: Ghost} (n: gname) (a: G) (pp: preds) :=
+  EX v : _, Own (singleton n (existT _ RA (exist _ a v), pp)).
+
+End own.
+Module Export VST.
+Module Export veric.
+Module Export own.
+Include VST_DOT_veric_DOT_own_WRAPPED.own.
+End own.
+Export VST.msl.ghost.
+
+Notation "|==> P" := (own.bupd P) (at level 99, P at level 200): pred.
+Export VST.veric.shares.
+Definition ext_ref {Z} (ora : Z) : {g : Ghost & {a : G | valid a}}.
+Admitted.
+Export compcert.export.Clightdefs.
+Export compcert.cfrontend.Ctypes.
+Export compcert.cfrontend.Cop.
+Export compcert.cfrontend.Clight.
+Import VST.veric.val_lemmas.
+Import compcert.lib.Maps.
+Definition eqb_option {A} (f: A -> A -> bool) (x y: option A) : bool.
+Admitted.
+Definition eqb_attr (a b: attr) : bool.
+Admitted.
+Definition eqb_floatsize (a b: floatsize) : bool.
+Admitted.
+Definition eqb_ident : ident -> ident -> bool.
+Admitted.
+Definition eqb_intsize (a b: intsize) : bool.
+Admitted.
+
+Definition eqb_signedness (a b : signedness) :=
+ match a, b with
+ | Signed, Signed => true
+ | Unsigned, Unsigned => true
+ | _, _ => false
+ end.
+
+Definition eqb_calling_convention (a b: calling_convention) :=
+ andb (eqb_option Z.eqb (cc_vararg a) (cc_vararg b))
+     (andb  (eqb (cc_unproto a) (cc_unproto b))
+      (eqb (cc_structret a) (cc_structret b))).
+
+Fixpoint eqb_type (a b: type) {struct a} : bool :=
+ match a, b with
+ | Tvoid, Tvoid => true
+ | Tint ia sa aa, Tint ib sb ab => andb (eqb_intsize ia ib)
+                                                    (andb (eqb_signedness sa sb) (eqb_attr aa ab))
+ | Tlong sa aa, Tlong sb ab => andb (eqb_signedness sa sb) (eqb_attr aa ab)
+ | Tfloat sa aa, Tfloat sb ab => andb (eqb_floatsize sa sb) (eqb_attr aa ab)
+ | Tpointer ta aa, Tpointer tb ab => andb (eqb_type ta tb) (eqb_attr aa ab)
+ | Tarray ta sa aa, Tarray tb sb ab => andb (eqb_type ta tb)
+                                                                   (andb (Zeq_bool sa sb) (eqb_attr aa ab))
+ | Tfunction sa ta ca, Tfunction sb tb cb =>
+       andb (andb (eqb_typelist sa sb) (eqb_type ta tb)) (eqb_calling_convention ca cb)
+ | Tstruct ia aa, Tstruct ib ab => andb (eqb_ident ia ib) (eqb_attr aa ab)
+ | Tunion ia aa, Tunion ib ab => andb (eqb_ident ia ib) (eqb_attr aa ab)
+ | _, _ => false
+ end
+with eqb_typelist (a b: typelist)  {struct a}: bool :=
+  match a, b with
+  | Tcons ta ra, Tcons tb rb => andb (eqb_type ta tb) (eqb_typelist ra rb)
+  | Tnil, Tnil => true
+  | _ , _ => false
+  end.
+Definition int_or_ptr_type : type.
+Admitted.
+Definition tc_val (ty: type) : val -> Prop.
+Admitted.
+
+Definition tc_val' t v := v <> Vundef -> tc_val t v.
+Import VST.veric.compcert_rmaps.
+Import VST.veric.mpred.
+
+Section Invariants.
+
+Import Coq.Sets.Ensembles.
+
+Global Arguments Union {_} _ _.
+Global Arguments Disjoint {_} _ _.
+Global Arguments Full_set {_}.
+
+#[global] Polymorphic Program Instance set_PCM : Ghost := { valid := fun _ : Ensemble nat => True;
+  Join_G a b c := Disjoint a b /\ c = Union a b }.
+Admit Obligations.
+
+Definition ghost_set g s := own(RA := set_PCM) g s NoneP.
+
+Class invG := { g_inv : gname; g_en : gname; g_dis : gname }.
+Definition wsat : mpred.
+Admitted.
+
+End Invariants.
+Module Export fupd.
+
+Section FancyUpdates.
+
+Context {inv_names : invG}.
+
+Definition fupd E1 E2 P :=
+  ((wsat * ghost_set g_en E1) -* |==> |>FF || (wsat * ghost_set g_en E2 * P))%pred.
+
+End FancyUpdates.
 
 Inductive Annotation :=
   WeakAnnotation : (environ -> mpred) -> Annotation
@@ -59,67 +228,26 @@ Inductive tycontext : Type :=
                         (tyc_globsp: PTree.t funspec)
                         (tyc_annot: PTree.t Annotation),
                              tycontext.
-Definition temp_types (Delta: tycontext): PTree.t type. exact (match Delta with mk_tycontext a _ _ _ _ _ => a end). Defined.
-Definition var_types (Delta: tycontext) : PTree.t type. exact (match Delta with mk_tycontext _ a _ _ _ _ => a end). Defined.
-Definition ret_type (Delta: tycontext) : type. exact (match Delta with mk_tycontext _ _ a _ _ _ => a end). Defined.
-Definition glob_types (Delta: tycontext) : PTree.t type. exact (match Delta with mk_tycontext _ _ _ a _ _ => a end). Defined.
-
- 
-
- 
-
- 
-
-Definition typecheck_temp_environ
-(te: tenviron) (tc: PTree.t type) :=
-forall id ty , tc ! id = Some ty  -> exists v, Map.get te id = Some v /\ tc_val' ty v.
-
-Definition typecheck_var_environ
-(ve: venviron) (tc: PTree.t type) :=
-forall id ty, tc ! id = Some ty <-> exists v, Map.get ve id = Some(v,ty).
-
-Definition typecheck_glob_environ
-(ge: genviron) (tc: PTree.t type) :=
-forall id  t,  tc ! id = Some t ->
-(exists b, Map.get ge id = Some b).
-
-Definition typecheck_environ (Delta: tycontext) (rho : environ) :=
-typecheck_temp_environ (te_of rho) (temp_types Delta) /\
-typecheck_var_environ  (ve_of rho) (var_types Delta) /\
-typecheck_glob_environ (ge_of rho) (glob_types Delta).
-Definition local:  (environ -> Prop) -> environ->mpred. exact (lift1 prop). Defined.
-Definition tc_environ (Delta: tycontext) : environ -> Prop. exact (fun rho => typecheck_environ Delta rho). Defined.
-Definition argsHaveTyps (vals:list val) (types: list type): Prop. exact (Forall2 (fun v t => v<>Vundef -> Val.has_type v t) vals (map typ_of_type types)). Defined.
-
-Notation fupd := (fupd Ensembles.Full_set Ensembles.Full_set).
+Definition temp_types (Delta: tycontext): PTree.t type.
+Admitted.
+Definition ret_type (Delta: tycontext) : type.
+Admitted.
+Definition local:  (environ -> Prop) -> environ->mpred.
+Admitted.
+Definition tc_environ (Delta: tycontext) : environ -> Prop.
+Admitted.
 
 Section invs.
-Context {inv_names : invG}.
-Definition funspec_sub (f1 f2 : funspec): Prop. exact (match f1 with
-| mk_funspec tpsig1 cc1 A1 P1 Q1 _ _ =>
-    match f2 with
-    | mk_funspec tpsig2 cc2 A2 P2 Q2 _ _ =>
-        (tpsig1=tpsig2 /\ cc1=cc2) /\
-        forall ts2 (x2:dependent_type_functor_rec ts2 A2 mpred) (gargs:argsEnviron),
-        ((!! (argsHaveTyps(snd gargs)(fst tpsig1)) && P2 ts2 x2 gargs)
-         |-- fupd (EX ts1:_,  EX (x1:dependent_type_functor_rec ts1 A1 mpred), EX F:_,
-                           (F * (P1 ts1 x1 gargs)) &&
-                               (!! (forall rho',
-                                           ((!!(ve_of rho' = Map.empty (block * type))) &&
-                                                 (F * (Q1 ts1 x1 rho')))
-                                         |-- (Q2 ts2 x2 rho')))))
-    end
-end). Defined.
-Definition func_at (f: funspec): address -> pred rmap. exact (match f with
-   | mk_funspec fsig cc A P Q _ _ => pureat (SomeP (SpecArgsTT A) (packPQ P Q)) (FUN fsig cc)
-  end). Defined.
-Definition func_ptr (f: funspec) (v: val): mpred. exact (EX b: block, !! (v = Vptr b Ptrofs.zero) && (EX gs: funspec, !!(funspec_sub gs f) && func_at gs (b, 0))). Defined.
-Definition typed_true (t: type) (v: val)  : Prop. exact (strict_bool_val v t
-= Some true). Defined.
-Definition typed_false (t: type)(v: val) : Prop. exact (strict_bool_val v t =
-                                                   Some false). Defined.
-Definition subst {A} (x: ident) (v: environ -> val) (P: environ -> A) : environ -> A. exact (fun s => P (env_set s x (v s))). Defined.
-Definition globals_only (rho: environ) : environ. exact ((mkEnviron (ge_of rho) (Map.empty _) (Map.empty _))). Defined.
+Definition func_ptr (f: funspec) (v: val): mpred.
+Admitted.
+Definition typed_true (t: type) (v: val)  : Prop.
+Admitted.
+Definition typed_false (t: type)(v: val) : Prop.
+Admitted.
+Definition subst {A} (x: ident) (v: environ -> val) (P: environ -> A) : environ -> A.
+Admitted.
+Definition globals_only (rho: environ) : environ.
+Admitted.
 
 Fixpoint make_args (il: list ident) (vl: list val) (rho: environ)  :=
   match il, vl with
@@ -127,13 +255,9 @@ Fixpoint make_args (il: list ident) (vl: list val) (rho: environ)  :=
   | i::il', v::vl' => env_set (make_args il' vl' rho) i v
    | _ , _ => rho
   end.
-Admit Obligations.
-
-  
 
 End invs.
 Export VST.veric.lift.
-Export VST.veric.mpred.
 
 Record ret_assert : Type := {
  RA_normal: environ->mpred;
@@ -141,12 +265,8 @@ Record ret_assert : Type := {
  RA_continue: environ->mpred;
  RA_return: option val -> environ->mpred
 }.
-Import VST.veric.juicy_base.
 Import VST.sepcomp.extspec.
 Import VST.veric.juicy_mem.
-
-Import VST.veric.ghost_PCM.
-Import VST.veric.invariants.
 
 Record juicy_ext_spec (Z: Type) := {
   JE_spec:> external_specification juicy_mem external_function Z;
@@ -167,11 +287,7 @@ Class OracleKind := {
 }.
 
 #[ global] Instance inv_names : invG := { g_inv := 1%nat; g_en := 2%nat; g_dis := 3%nat}.
-
-Module Export VST_DOT_veric_DOT_Clight_Cop2_WRAPPED.
 Module Export Clight_Cop2.
-
-Export VST.veric.Cop2.
 Definition sem_cast (t1 t2: type): val -> option val.
 Admitted.
 Definition sem_unary_operation
@@ -181,16 +297,7 @@ Definition sem_binary_operation'
     {CS: compspecs} (op: Cop.binary_operation)
     (t1:type) (t2: type) : val -> val -> option val.
 Admitted.
-End Clight_Cop2.
-Module Export VST.
-Module Export veric.
-Module Export Clight_Cop2.
-Include VST_DOT_veric_DOT_Clight_Cop2_WRAPPED.Clight_Cop2.
-End Clight_Cop2.
-Import VST.veric.Clight_base.
 Import LiftNotation.
-Export VST.veric.Clight_Cop2.
-Export VST.veric.val_lemmas.
 
 Definition eval_unop (op: Cop.unary_operation) (t1 : type) :=
        force_val1 (Clight_Cop2.sem_unary_operation op t1).
@@ -279,15 +386,12 @@ Definition size_compatible {C: compspecs} t p :=
   | Vptr b i_ofs => Ptrofs.unsigned i_ofs + sizeof t < Ptrofs.modulus
   | _ => True
   end.
-Import compcert.lib.Maps.
 Export VST.msl.seplog.
 Export VST.msl.ghost_seplog.
 Export VST.veric.composite_compute.
 Export VST.veric.align_mem.
 Import VST.veric.own.
 Import compcert.cfrontend.Ctypes.
-#[export] Instance Nveric: NatDed mpred.
-Admitted.
 
 #[export] Program Instance Bveric: BupdSepLog mpred gname compcert_rmaps.RML.R.preds :=
   { bupd := bupd; own := @own }.
@@ -894,3 +998,4 @@ clear.
 refine (ex_intro _ _ eq_refl).
 
 Check J.
+
