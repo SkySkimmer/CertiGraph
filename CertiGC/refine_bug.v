@@ -1,533 +1,370 @@
 (* -*- mode: coq; coq-prog-args: ("-emacs" "-w" "-overriding-logical-loadpath" "-w" "-deprecated-native-compiler-option,-native-compiler-disabled" "-native-compiler" "ondemand" "-Q" "/github/workspace/cwd" "Top" "-Q" "/github/workspace/CertiGraph/lib" "CertiGraph.lib" "-Q" "/github/workspace/CertiGraph/msl_ext" "CertiGraph.msl_ext" "-Q" "/github/workspace/CertiGraph/msl_application" "CertiGraph.msl_application" "-Q" "/github/workspace/CertiGraph/graph" "CertiGraph.graph" "-Q" "/github/workspace/CertiGraph/heap_model_direct" "CertiGraph.heap_model_direct" "-Q" "/github/workspace/CertiGraph" "CertiGraph" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/VST" "VST" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/compcert" "compcert" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Bignums" "Bignums" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Flocq" "Flocq" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Ltac2" "Ltac2" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/MenhirLib" "MenhirLib" "-top" "CertiGraph.CertiGC.refine_bug") -*- *)
-(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines, then from 1008 lines to 924 lines, then from 937 lines to 1221 lines, then from 1226 lines to 942 lines, then from 955 lines to 1291 lines, then from 1296 lines to 984 lines, then from 997 lines to 1278 lines, then from 1282 lines to 1088 lines, then from 1101 lines to 1553 lines, then from 1557 lines to 1167 lines, then from 1180 lines to 1495 lines, then from 1500 lines to 1176 lines, then from 1189 lines to 1340 lines, then from 1343 lines to 1218 lines, then from 1231 lines to 3579 lines, then from 3574 lines to 1250 lines, then from 1263 lines to 1367 lines, then from 1372 lines to 1266 lines, then from 1278 lines to 1254 lines, then from 1267 lines to 2204 lines, then from 2208 lines to 1277 lines, then from 1290 lines to 3502 lines, then from 3499 lines to 1281 lines, then from 1294 lines to 3043 lines, then from 3046 lines to 1542 lines, then from 1555 lines to 2919 lines, then from 2921 lines to 1551 lines, then from 1564 lines to 1653 lines, then from 1658 lines to 1567 lines, then from 1580 lines to 1567 lines, then from 1580 lines to 2131 lines, then from 2135 lines to 1537 lines, then from 1550 lines to 2714 lines, then from 2713 lines to 1557 lines, then from 1570 lines to 2436 lines, then from 2437 lines to 1569 lines, then from 1582 lines to 2503 lines, then from 2506 lines to 1578 lines, then from 1591 lines to 1575 lines, then from 1588 lines to 9598 lines, then from 9590 lines to 1673 lines, then from 1686 lines to 2310 lines, then from 2313 lines to 1674 lines, then from 1687 lines to 2544 lines, then from 2546 lines to 2189 lines *)
+(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines, then from 1008 lines to 924 lines, then from 937 lines to 1221 lines, then from 1226 lines to 942 lines, then from 955 lines to 1291 lines, then from 1296 lines to 984 lines, then from 997 lines to 1278 lines, then from 1282 lines to 1088 lines, then from 1101 lines to 1553 lines, then from 1557 lines to 1167 lines, then from 1180 lines to 1495 lines, then from 1500 lines to 1176 lines, then from 1189 lines to 1340 lines, then from 1343 lines to 1218 lines, then from 1231 lines to 3579 lines, then from 3574 lines to 1250 lines, then from 1263 lines to 1367 lines, then from 1372 lines to 1266 lines, then from 1278 lines to 1254 lines, then from 1267 lines to 2204 lines, then from 2208 lines to 1277 lines, then from 1290 lines to 3502 lines, then from 3499 lines to 1281 lines, then from 1294 lines to 3043 lines, then from 3046 lines to 1542 lines, then from 1555 lines to 2919 lines, then from 2921 lines to 1551 lines, then from 1564 lines to 1653 lines, then from 1658 lines to 1567 lines, then from 1580 lines to 1567 lines, then from 1580 lines to 2131 lines, then from 2135 lines to 1537 lines, then from 1550 lines to 2714 lines, then from 2713 lines to 1557 lines, then from 1570 lines to 2436 lines, then from 2437 lines to 1569 lines, then from 1582 lines to 2503 lines, then from 2506 lines to 1578 lines, then from 1591 lines to 1575 lines, then from 1588 lines to 9598 lines, then from 9590 lines to 1673 lines, then from 1686 lines to 2310 lines, then from 2313 lines to 1674 lines, then from 1687 lines to 2544 lines, then from 2546 lines to 2189 lines, then from 2172 lines to 1676 lines, then from 1689 lines to 3375 lines, then from 3378 lines to 1760 lines, then from 1773 lines to 3426 lines, then from 3417 lines to 1734 lines, then from 1747 lines to 1824 lines, then from 1829 lines to 1756 lines, then from 1769 lines to 3159 lines, then from 3161 lines to 1956 lines *)
 (* coqc version 8.17.1 compiled with OCaml 4.13.1
    coqtop version 8.17.1
-   Expected coqc runtime on this file: 1.742 sec *)
-Require Coq.Init.Ltac.
-Require Coq.Logic.ClassicalFacts.
-Require Coq.Logic.FunctionalExtensionality.
-Require VST.msl.Axioms.
-Require Coq.Logic.EqdepFacts.
-Require VST.msl.Extensionality.
-Require Coq.Lists.List.
-Require Coq.Bool.Bool.
-Require Coq.Relations.Relations.
-Require Coq.micromega.Lia.
-Require VST.msl.base.
-Require VST.msl.eq_dec.
-Require VST.msl.sepalg.
-Require Coq.Structures.GenericMinMax.
+   Expected coqc runtime on this file: 1.465 sec *)
+Require VST.msl.functors.
+Require VST.msl.predicates_hered.
 Require VST.msl.boolean_alg.
-Require Coq.Logic.ProofIrrelevance.
-Require Coq.Setoids.Setoid.
-Require Coq.Classes.Morphisms.
-Require Coq.Classes.Equivalence.
-Require Coq.Sets.Ensembles.
-Require Coq.Sets.Constructive_sets.
-Require Coq.Relations.Relation_Definitions.
-Require Coq.Program.Basics.
-Require CertiGraph.lib.Coqlib.
-Require Coq.Classes.EquivDec.
-Require CertiGraph.lib.EquivDec_ext.
-Require CertiGraph.lib.Ensembles_ext.
-Require Coq.Sorting.Permutation.
-Require Coq.ZArith.ZArith_base.
-Require Coq.ZArith.Zcomplements.
-Require Coq.ZArith.ZArith.
-Require Coq.ZArith.Znumtheory.
-Require VST.zlist.sublist.
-Require Coq.Logic.PropExtensionality.
-Require VST.zlist.Zlength_solver.
-Require Coq.Sorting.Sorted.
-Require VST.zlist.list_solver.
-Require CertiGraph.lib.List_ext.
-Require CertiGraph.lib.Relation_ext.
-Require CertiGraph.lib.Equivalence_ext.
-Require CertiGraph.lib.List_Func_ext.
-Require CertiGraph.lib.relation_list.
 Require CertiGraph.graph.graph_model.
-Require Coq.Lists.ListSet.
-Require compcert.common.AST.
-Require compcert.common.Values.
-Require compcert.common.Memory.
-Require compcert.common.Globalenvs.
-Require compcert.lib.Maps.
 Require VST.sepcomp.extspec.
-Require Coq.Arith.EqNat.
-Require compcert.lib.Axioms.
-Require compcert.lib.Coqlib.
-Require compcert.lib.Integers.
-Require compcert.lib.Floats.
-Require compcert.common.Memdata.
-Require compcert.common.Memtype.
-Require VST.sepcomp.Address.
 Require VST.veric.Memory.
 Require VST.msl.ghost.
-Require compcert.cfrontend.Ctypes.
-Require VST.msl.Coqlib2.
-Require Coq.Logic.ConstructiveEpsilon.
-Require VST.veric.coqlib4.
-Require VST.veric.base.
-Require Coq.Sorting.Sorting.
-Require Coq.Structures.Orders.
 Require VST.veric.composite_compute.
-Require VST.veric.type_induction.
-Require VST.veric.align_mem.
-Require VST.veric.compspecs.
-Require VST.msl.sig_isomorphism.
-Require VST.msl.functors.
-Require Coq.funind.Recdef.
-Require Coq.Wellfounded.Wellfounded.
-Require VST.msl.ageable.
-Require Coq.Logic.Eqdep_dec.
-Require VST.msl.knot.
-Require Coq.Classes.RelationClasses.
-Require VST.msl.predicates_hered.
-Require Coq.Arith.Arith.
-Require VST.msl.knot_full_variant.
-Require VST.msl.knot_shims.
 Require compcert.export.Clightdefs.
-
-Module Export AdmitTactic.
-Module Import LocalFalse.
-Inductive False : Prop := .
-End LocalFalse.
 Axiom proof_admitted : False.
-Import Coq.Init.Ltac.
 Tactic Notation "admit" := abstract case proof_admitted.
-End AdmitTactic.
+Module Export align_mem.
+Import VST.veric.base.
+Import compcert.cfrontend.Ctypes.
+Import VST.veric.composite_compute.
+Import compcert.lib.Maps.
 
-Module Export VST_DOT_msl_DOT_sepalg_generators_WRAPPED.
-Module Export sepalg_generators.
  
 
- 
+Section align_compatible_rec.
+
+Context (cenv: composite_env).
+
+Inductive align_compatible_rec: type -> Z -> Prop :=
+| align_compatible_rec_by_value: forall t ch z,
+          access_mode t = By_value ch ->
+          (Memdata.align_chunk ch | z) ->
+          align_compatible_rec t z
+| align_compatible_rec_Tarray: forall t n a z,
+           (forall i, 0 <= i < n -> align_compatible_rec t (z + sizeof cenv t * i)) ->
+           align_compatible_rec (Tarray t n a) z
+| align_compatible_rec_Tstruct: forall i a co z,
+            cenv ! i = Some co ->
+            plain_members (co_members co) = true ->
+            (forall i0 t0 z0, field_type i0 (co_members co) = Errors.OK t0 ->
+                     field_offset cenv i0 (co_members co) = Errors.OK (z0, Full) ->
+                      align_compatible_rec t0 (z + z0)) ->
+            align_compatible_rec (Tstruct i a) z
+| align_compatible_rec_Tunion: forall i a co z,
+            cenv ! i = Some co ->
+            plain_members (co_members co) = true ->
+            (forall i0 t0, field_type i0 (co_members co) = Errors.OK t0 -> align_compatible_rec t0 z) ->
+             align_compatible_rec (Tunion i a) z.
+
+End align_compatible_rec.
+
+Fixpoint hardware_alignof (ha_env: PTree.t Z) t: Z :=
+  match t with
+  | Tarray t' _ _ => hardware_alignof ha_env t'
+  | Tstruct id _ =>
+      match ha_env ! id with
+      | Some ha => ha
+      | None => 1
+      end
+  | Tunion id _ =>
+      match ha_env ! id with
+      | Some ha => ha
+      | None => 1
+      end
+  | _ => match access_mode t with
+         | By_value ch => Memdata.align_chunk ch
+         | _ => 1
+         end
+  end.
+Fixpoint hardware_alignof_composite (ha_env: PTree.t Z) (m: members): Z.
+Admitted.
+Definition hardware_alignof_env (cenv: composite_env): PTree.t Z.
+Admitted.
+Definition hardware_alignof_env_consistent (cenv: composite_env) (ha_env: PTree.t Z): Prop.
+Admitted.
+Definition hardware_alignof_env_complete (cenv: composite_env) (ha_env: PTree.t Z): Prop.
+Admitted.
+
+Module Type HARDWARE_ALIGNOF_FACTS.
+
+End HARDWARE_ALIGNOF_FACTS.
+Definition mode_is_by_value (m: mode) : bool.
+Admitted.
+
+Module hardware_alignof_facts: HARDWARE_ALIGNOF_FACTS.
+
+End hardware_alignof_facts.
+
+Module Type LEGAL_ALIGNAS.
+
+  Parameter legal_alignas_obs: Type.
+
+End LEGAL_ALIGNAS.
+
+Module LegalAlignasDefsGen (LegalAlignas: LEGAL_ALIGNAS).
+
+  Import LegalAlignas.
+Definition legal_alignas_env_consistent (cenv: composite_env) (ha_env: PTree.t Z) (la_env: PTree.t legal_alignas_obs): Prop.
+Admitted.
+Definition legal_alignas_env_complete (cenv: composite_env) (la_env: PTree.t legal_alignas_obs): Prop.
+Admitted.
+Definition legal_alignas_env_sound (cenv: composite_env) (ha_env: PTree.t Z) (la_env: PTree.t legal_alignas_obs): Prop.
+Admitted.
+
+End LegalAlignasDefsGen.
+
+Module Type LEGAL_ALIGNAS_FACTS.
+
+  Declare Module LegalAlignas: LEGAL_ALIGNAS.
+  Module LegalAlignasDefs := LegalAlignasDefsGen (LegalAlignas).
+Export LegalAlignas.
+Export LegalAlignasDefs.
+
+End LEGAL_ALIGNAS_FACTS.
+
+Module LegalAlignasStrict <: LEGAL_ALIGNAS.
+
+Section legal_alignas.
+
+Context (cenv: composite_env) (ha_env: PTree.t Z).
+Definition legal_alignas_obs: Type.
+exact (bool).
+Defined.
+
+Fixpoint legal_alignas_type (la_env: PTree.t bool) t: bool :=
+  (hardware_alignof ha_env t <=? alignof cenv t) &&
+  match t with
+  | Tarray t' _ _ => (sizeof cenv t' mod alignof cenv t' =? 0) && legal_alignas_type la_env t'
+  | Tstruct id _ =>
+      match la_env ! id with
+      | Some la => la
+      | None => false
+      end
+  | Tunion id _ =>
+      match la_env ! id with
+      | Some la => la
+      | None => false
+      end
+  | _ => match access_mode t with
+         | By_value ch => true
+         | _ => false
+         end
+  end.
+Definition legal_alignas_composite (la_env: PTree.t bool) (co: composite): bool.
+Admitted.
+
+Definition is_aligned_aux (b: bool) (ha: Z) (ofs: Z) := b && ((ofs mod ha) =? 0).
+
+End legal_alignas.
+
+End LegalAlignasStrict.
+
+Module LegalAlignasStrictFacts: LEGAL_ALIGNAS_FACTS with Module LegalAlignas := LegalAlignasStrict.
+
+Module LegalAlignas := LegalAlignasStrict.
+Module LegalAlignasDefs := LegalAlignasDefsGen (LegalAlignas).
+
+Section legal_alignas.
+
+End legal_alignas.
+
+Section soundness.
+
+End soundness.
+
+End LegalAlignasStrictFacts.
+
+Module LegalAlignasStrong <: LEGAL_ALIGNAS.
+
+Section legal_alignas.
+
+Context (cenv: composite_env) (ha_env: PTree.t Z).
+Definition legal_alignas_obs: Type.
+exact (bool).
+Defined.
+
+Fixpoint legal_alignas_type (la_env: PTree.t bool) t: bool :=
+  match t with
+  | Tarray t' _ _ => (sizeof cenv t' mod hardware_alignof ha_env t' =? 0) && legal_alignas_type la_env t'
+  | Tstruct id _ =>
+      match la_env ! id with
+      | Some la => la
+      | None => false
+      end
+  | Tunion id _ =>
+      match la_env ! id with
+      | Some la => la
+      | None => false
+      end
+  | _ => mode_is_by_value (access_mode t)
+  end.
+Definition legal_alignas_composite (la_env: PTree.t bool) (co: composite): bool.
+Admitted.
+
+Definition is_aligned_aux (b: bool) (ha: Z) (ofs: Z) := b && ((ofs mod ha) =? 0).
+
+End legal_alignas.
+
+End LegalAlignasStrong.
+
+Module LegalAlignasStrongFacts: LEGAL_ALIGNAS_FACTS with Module LegalAlignas := LegalAlignasStrong.
+
+Module LegalAlignas := LegalAlignasStrong.
+Module LegalAlignasDefs := LegalAlignasDefsGen (LegalAlignas).
+
+Section legal_alignas.
+
+End legal_alignas.
+
+Section soundness.
+
+End soundness.
+
+End LegalAlignasStrongFacts.
+
+Module Export LegalAlignasFacts := LegalAlignasStrongFacts.
+
+End align_mem.
+Module Export knot_full_variant.
 Import VST.msl.base.
+Import VST.msl.ageable.
+Import VST.msl.functors.
+Import VST.msl.predicates_hered.
+Import VST.msl.functors.MixVariantFunctor.
+
+Module Type KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL.
+
+End KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL.
+
+Module Type KNOT__MIXVARIANT_HERED_T_OTH_REL.
+  Declare Module KI: KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL.
+
+End KNOT__MIXVARIANT_HERED_T_OTH_REL.
+
+Module Knot_MixVariantHeredTOthRel (KI':KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL) :
+  KNOT__MIXVARIANT_HERED_T_OTH_REL with Module KI:=KI'.
+  Module KI := KI'.
+
+  Section stratifies.
+  End stratifies.
+
+End Knot_MixVariantHeredTOthRel.
+
+Module Export KnotLemmas1.
+
+End KnotLemmas1.
+
+Module Export KnotLemmas2.
+
+End KnotLemmas2.
+
+Module KnotLemmas_MixVariantHeredTOthRel (K : KNOT__MIXVARIANT_HERED_T_OTH_REL).
+
+End KnotLemmas_MixVariantHeredTOthRel.
+
+Module Type KNOT_FULL_OUTPUT.
+  Declare Module KI: KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL.
+End KNOT_FULL_OUTPUT.
+
+Module Type KNOT_FULL.
+  Declare Module KI: KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL.
+  Declare Module KO: KNOT_FULL_OUTPUT with Module KI := KI.
+Definition knot : Type.
+Admitted.
+
+End KNOT_FULL.
+
+Module Type KNOT_FULL_LEMMAS.
+
+End KNOT_FULL_LEMMAS.
+
+Module KnotFull
+  (KI': KNOT_INPUT__MIXVARIANT_HERED_T_OTH_REL)
+  (KO': KNOT_FULL_OUTPUT with Module KI := KI'):
+  KNOT_FULL with Module KI := KI' with Module KO:=KO'.
+  Module Export KI:=KI'.
+  Module Export KO:=KO'.
+Definition knot: Type.
+Admitted.
+
+End KnotFull.
+Module Export compspecs.
+Export compcert.cfrontend.Ctypes.
+Import VST.veric.base.
+Import VST.veric.composite_compute.
+Import compcert.lib.Maps.
+Definition composite_legal_fieldlist (co: composite): Prop.
+Admitted.
+
+Definition composite_env_legal_fieldlist env :=
+  forall (id : positive) (co : composite),
+    env ! id = Some co -> composite_legal_fieldlist co.
+Class compspecs := mkcompspecs {
+  cenv_cs : composite_env;
+  cenv_consistent: composite_env_consistent cenv_cs;
+  cenv_legal_fieldlist: composite_env_legal_fieldlist cenv_cs;
+  cenv_legal_su: composite_env_complete_legal_cosu_type cenv_cs;
+  ha_env_cs: PTree.t Z;
+  ha_env_cs_consistent: hardware_alignof_env_consistent cenv_cs ha_env_cs;
+  ha_env_cs_complete: hardware_alignof_env_complete cenv_cs ha_env_cs;
+  la_env_cs: PTree.t legal_alignas_obs;
+  la_env_cs_consistent: legal_alignas_env_consistent cenv_cs ha_env_cs la_env_cs;
+  la_env_cs_complete: legal_alignas_env_complete cenv_cs la_env_cs;
+  la_env_cs_sound: legal_alignas_env_sound cenv_cs ha_env_cs la_env_cs
+}.
+
+Existing Class composite_env.
+#[export] Existing Instance cenv_cs.
+End compspecs.
+
+Module Type KNOT_INPUT__COCONTRAVARIANT_HERED_T_OTH_REL.
+
+End KNOT_INPUT__COCONTRAVARIANT_HERED_T_OTH_REL.
+
+Module Type KNOT__COCONTRAVARIANT_HERED_T_OTH_REL.
+  Declare Module KI: KNOT_INPUT__COCONTRAVARIANT_HERED_T_OTH_REL.
+
+End KNOT__COCONTRAVARIANT_HERED_T_OTH_REL.
+
+Module Type KNOT_INPUT__MIXVARIANT_HERED_PROP.
+
+End KNOT_INPUT__MIXVARIANT_HERED_PROP.
+
+Module Type KNOT__MIXVARIANT_HERED_PROP.
+  Declare Module KI : KNOT_INPUT__MIXVARIANT_HERED_PROP.
+
+  Parameter knot : Type.
+
+End KNOT__MIXVARIANT_HERED_PROP.
+
+Module Knot_CoContraVariantHeredTOthRel
+  (KI': KNOT_INPUT__COCONTRAVARIANT_HERED_T_OTH_REL):
+  KNOT__COCONTRAVARIANT_HERED_T_OTH_REL with Module KI:=KI'.
+  Module Export KI:=KI'.
+
+  Module Export Input.
+
+  End Input.
+
+End Knot_CoContraVariantHeredTOthRel.
+
+Module Knot_MixVariantHeredProp (KI':KNOT_INPUT__MIXVARIANT_HERED_PROP)
+  : KNOT__MIXVARIANT_HERED_PROP with Module KI:=KI'.
+  Module Export KI:=KI'.
+
+  Module Export Input.
+  End Input.
+
+  Module Output <: knot_full_variant.KNOT_FULL_OUTPUT with Module KI := Input.
+    Module KI := Input.
+  End Output.
+
+  Module K := knot_full_variant.KnotFull(Input)(Output).
+
+  Definition knot := K.knot.
+
+End Knot_MixVariantHeredProp.
 Import VST.msl.sepalg.
-#[global] Instance Join_unit : Join unit. exact (fun x y z => True). Defined.
 
-  #[global] Instance Perm_unit : Perm_alg unit.
-Admitted.
-
-  #[global] Instance Sep_unit: FSep_alg unit.
-Admitted.
-
-  #[global] Instance Sing_unit: Sing_alg unit.
-Admitted.
-
-  #[global] Instance Canc_unit: Canc_alg unit.
-Admitted.
-
-  #[global] Instance Disj_unit: Disj_alg unit.
-Admitted.
-
-  #[global] Instance Cross_unit: Cross_alg unit.
-Admitted.
-
- 
-
-  Inductive Void : Type :=.
-#[global] Instance Join_void : Join Void. exact (fun x y z => False). Defined.
-
-  #[global] Instance Perm_void : Perm_alg Void.
-Admitted.
-  #[global] Instance Sep_void: FSep_alg Void.
-Admitted.
-  #[global] Instance Canc_void: Canc_alg Void.
-Admitted.
-  #[global] Instance Disj_void: Disj_alg Void.
-Admitted.
-  #[global] Instance Cross_void: Cross_alg Void.
-Admitted.
-
- 
-
-  Inductive join_bool : bool -> bool -> bool -> Prop :=
-  | jb_fff: join_bool false false false
-  | jb_tft: join_bool true false true
-  | jb_ftt: join_bool false true true.
-#[global] Instance Join_bool : Join bool. exact (join_bool). Defined.
-
-  #[global] Instance Perm_bool: Perm_alg bool.
-Admitted.
-
-  #[global] Instance Sep_bool: FSep_alg bool.
-Admitted.
-
-  #[global] Instance Sing_bool: Sing_alg bool.
-Admitted.
-
-  #[global] Instance Canc_bool: Canc_alg bool.
-Admitted.
-
-  #[global] Instance Disj_bool: Disj_alg bool.
-Admitted.
-
-  #[global] Instance Cross_bool: Cross_alg bool.
-Admitted.
-
-Section JOIN_EQUIV.
-#[local] Instance Join_equiv (A: Type) : Join A. exact (fun x y z => x=y/\y=z). Defined.
-
-  #[local] Instance Perm_equiv (A: Type) :  @Perm_alg A (Join_equiv A).
-Admitted.
-
-  #[local] Instance Sep_equiv (A: Type): FSep_alg A.
-Admitted.
-
-  #[local] Instance Canc_equiv (A: Type): Canc_alg A.
-Admitted.
-
-  #[local] Instance Disj_equiv (A: Type): Disj_alg A.
-Admitted.
-
-  #[local] Instance Cross_equiv (A: Type): Cross_alg A.
-Admitted.
-
-Lemma join_equiv_refl: forall A (v: A), @join A (Join_equiv A) v v v.
-Admitted.
-End JOIN_EQUIV.
-
- 
-#[global] Existing Instance Perm_equiv.
-#[global] Existing Instance Sep_equiv.
-#[global] Existing Instance Canc_equiv.
-#[global] Existing Instance Disj_equiv.
-#[global] Existing Instance Cross_equiv.
-
-#[export] Hint Extern 1 (@join _ _ _ _ _) =>
-   match goal with |- @join _ (@Join_equiv _) _ _ _ => apply join_equiv_refl end
-   : core.
-
-Section SepAlgProp.
-  Variable A:Type.
-  Variable JOIN: Join A.
-  Variable PA: Perm_alg A.
-  Variable P:A -> Prop.
-
-  Variable HPjoin : forall x y z, join x y z -> P x -> P y -> P z.
-#[global] Instance Join_prop : Join (sig P). exact (fun x y z: (sig P) => join (proj1_sig x) (proj1_sig y) (proj1_sig z)). Defined.
-
-  #[global] Instance Perm_prop : Perm_alg (sig P).
-Admitted.
-
-  #[global] Instance Sep_prop (SA: Sep_alg A)(HPcore : forall x, P x -> P (core x)): Sep_alg (sig P).
-Admitted.
-
- #[global] Instance Sing_prop  (SA: Sep_alg A)(Sing_A: Sing_alg A)
-               (HPcore : forall x, P x -> P (core x)): P the_unit ->
-    @Sing_alg (sig P) Join_prop (Sep_prop _ HPcore).
-Admitted.
-
-  #[global] Instance Canc_prop  {CA: Canc_alg A}:  Canc_alg (sig P).
-Admitted.
-
-  #[global] Instance Disj_prop {DA: Disj_alg A}: Disj_alg (sig P).
-Admitted.
-
- 
-
-End SepAlgProp.
-#[global] Existing Instance Join_prop.
-#[global] Existing Instance Perm_prop.
-#[global] Existing Instance Sep_prop.
-#[global] Existing Instance Sing_prop.
-#[global] Existing Instance Canc_prop.
-#[global] Existing Instance Disj_prop.
-
- 
-Section SepAlgFun.
-  Variable key: Type.
-  Variable t' : Type.
-  Variable JOIN: Join t'.
-  Variable Pt': Perm_alg t'.
-#[global] Instance Join_fun: Join (key -> t'). exact (fun a b c : key -> t' => forall x, join (a x) (b x) (c x)). Defined.
-
-  #[global] Instance Perm_fun : Perm_alg (key -> t').
-Admitted.
-
-  #[global] Instance Sep_fun (SA: Sep_alg t'): Sep_alg (key -> t').
-Admitted.
-
- #[global] Instance Sing_fun (SA: Sep_alg t'): Sing_alg t' -> Sing_alg (key -> t').
-Admitted.
-
- #[global] Instance Canc_fun: Canc_alg t' -> Canc_alg (key -> t').
-Admitted.
-
- #[global] Instance Disj_fun: Disj_alg t' -> Disj_alg (key -> t').
-Admitted.
-End SepAlgFun.
-
-#[global] Existing Instance Join_fun.
-#[global] Existing Instance Perm_fun.
-#[global] Existing Instance Sep_fun.
-#[global] Existing Instance Sing_fun.
-#[global] Existing Instance Canc_fun.
-#[global] Existing Instance Disj_fun.
-
- 
-
-Section SepAlgPi.
-  Variable I:Type.
-  Variable Pi: I -> Type.
-  Variable pi_J: forall i, Join (Pi i).
-  Variable PA:  forall i, Perm_alg (Pi i).
-
-  Let P := forall i:I, Pi i.
-#[global] Instance Join_pi: Join P. exact (fun x y z => forall i:I, join (x i) (y i) (z i)). Defined.
-
-  #[global] Instance Perm_pi  : Perm_alg P.
-Admitted.
-
-  #[global] Instance Sep_pi (SA : forall i:I, Sep_alg (Pi i)): Sep_alg P.
-Admitted.
-
-  #[global] Instance Canc_pi: (forall i, Canc_alg (Pi i)) -> Canc_alg P.
-Admitted.
-
-  #[global] Instance Disj_pi: (forall i, Disj_alg (Pi i)) -> Disj_alg P.
-Admitted.
-
-End SepAlgPi.
-#[global] Existing Instance Join_pi.
-#[global] Existing Instance Perm_pi.
-#[global] Existing Instance Sep_pi.
-#[global] Existing Instance Canc_pi.
-#[global] Existing Instance Disj_pi.
-
- 
-Section SepAlgSigma.
-  Variable I:Type.
-  Variable Sigma: I -> Type.
-  Variable JOIN: forall i, Join (Sigma i).
-  Variable PA: forall i, Perm_alg (Sigma i).
-  Let S := sigT Sigma.
-
-  Inductive join_sigma : S -> S -> S -> Prop :=
-    j_sig_def : forall (i:I) (a b c:Sigma i),
-      join a b c ->
-      join_sigma (existT Sigma i a) (existT Sigma i b) (existT Sigma i c).
-#[global] Instance Join_sigma: Join S. exact (join_sigma). Defined.
-
-  #[global] Instance Perm_sigma: Perm_alg S.
-Admitted.
-
-  #[global] Instance Sep_sigma (SA : forall i:I, Sep_alg (Sigma i)) : Sep_alg S.
-Admitted.
-
-  #[global] Instance Canc_sigma: (forall i, Canc_alg (Sigma i)) -> Canc_alg S.
-Admitted.
-
-  #[global] Instance Disj_sigma: (forall i, Disj_alg (Sigma i)) -> Disj_alg S.
-Admitted.
-End SepAlgSigma.
-
-#[global] Existing Instance Join_sigma.
-#[global] Existing Instance Perm_sigma.
-#[global] Existing Instance Sep_sigma.
-#[global] Existing Instance Canc_sigma.
-#[global] Existing Instance Disj_sigma.
-
- 
-Section SepAlgProd.
-
-  Variables (A: Type) (Ja: Join A).
-  Variables (B: Type) (Jb: Join B) .
-#[local] Instance Join_prod : Join (A*B). exact (fun (x y z:A*B) =>  join (fst x) (fst y) (fst z) /\ join (snd x) (snd y) (snd z)). Defined.
-
-  Variables (PAa: Perm_alg A)(PAb: Perm_alg B).
-  #[local] Instance Perm_prod  : Perm_alg (A*B).
-Admitted.
-
-  #[global] Instance Sep_prod (SAa: Sep_alg A) (SAb: Sep_alg B) : Sep_alg (A*B).
-Admitted.
-
-  #[global] Instance Sing_prod {SAa: Sep_alg A} {SAb: Sep_alg B} {SingA: Sing_alg A}{SingB: Sing_alg B}: Sing_alg (A*B).
-Admitted.
-
-  #[global] Instance Canc_prod {CAa: Canc_alg A} {CAb:  Canc_alg B}: Canc_alg (A*B).
-Admitted.
-
-  #[global] Instance Disj_prod {DAa: Disj_alg A} {DAb:  Disj_alg B}: Disj_alg (A*B).
-Admitted.
-
-End SepAlgProd.
-
-Arguments Perm_prod [A] [Ja] [B] [Jb] _ _.
-Arguments Sep_prod [A] [Ja] [B] [Jb] [PAa] [PAb] _ _.
-#[global] Existing Instance Join_prod.
-#[global] Existing Instance Perm_prod.
-#[global] Existing Instance Sep_prod.
-#[global] Existing Instance Canc_prod.
-#[global] Existing Instance Disj_prod.
-
- 
-Section SepAlgSum.
-
-  Variables (A: Type) (Ja: Join A) .
-  Variables (B: Type) (Jb: Join B) .
-  Variables (PAa: Perm_alg A) (PAb: Perm_alg B).
-#[global] Instance Join_sum : Join (A+B). exact ((fun (x y z: A+B) =>
-    match x, y, z with
-    | inl xa, inl ya, inl za => join xa ya za
-    | inr xb, inr yb, inr zb => join xb yb zb
-    | _, _, _ => False
-    end)). Defined.
-
-  #[global] Instance Perm_sum: Perm_alg (A+B).
-Admitted.
-
-  #[global] Instance Sep_sum (SAa: Sep_alg A) (SAb: Sep_alg B): Sep_alg (A+B).
-Admitted.
-
-  #[global] Instance Canc_sum {CAa: Canc_alg A} {CAb:  Canc_alg B}: Canc_alg (A+B).
-Admitted.
-
-  #[global] Instance Disj_sum {DAa: Disj_alg A} {DAb:  Disj_alg B}: Disj_alg (A+B).
-Admitted.
-
-End SepAlgSum.
-#[global] Existing Instance Join_sum.
-#[global] Existing Instance Perm_sum.
-#[global] Existing Instance Sep_sum.
-#[global] Existing Instance Canc_sum.
-#[global] Existing Instance Disj_sum.
-
- 
 Section sa_list.
 
   Variables (A: Type) (Ja: Join A)  (PAa: Perm_alg A).
-
-  Inductive list_join : list A -> list A -> list A -> Prop :=
-  | lj_nil : list_join nil nil nil
-  | lj_cons : forall x y z xs ys zs,
-      join x y z ->
-      list_join xs ys zs ->
-      list_join (x::xs) (y::ys) (z::zs).
-#[global] Instance Join_list: Join (list A). exact (list_join). Defined.
-
-  #[global] Instance Perm_list: Perm_alg (list A).
-Admitted.
-
-  #[global] Instance Sep_list (SAa: Sep_alg A) : Sep_alg (list A).
-Admitted.
-
-  #[global] Instance Canc_list {CA: Canc_alg A}: Canc_alg (list A).
-Admitted.
-
-  #[global] Instance Disj_list {DAa: Disj_alg A} : Disj_alg (list A).
-Admitted.
+#[global] Instance Join_list: Join (list A).
+admit.
+Defined.
 
 End sa_list.
-#[global] Existing Instance Join_list.
-#[global] Existing Instance Perm_list.
-#[global] Existing Instance Sep_list.
-#[global] Existing Instance Canc_list.
-#[global] Existing Instance Disj_list.
-
- 
-
-Definition raw_join_hom A B (j1: A -> A -> A -> Prop) (j2: B -> B -> B -> Prop) (f:A ->B) :=
-  forall x y z,
-    j1 x y z ->
-    j2 (f x) (f y) (f z).
-Arguments raw_join_hom [A B] _ _ _.
-
-Definition join_hom {A} {JA: Join A} {B} {JB: Join B} (f:A ->B) :=
-  forall x y z,
-    join x y z ->
-    join (f x) (f y) (f z).
-
- 
-Section sa_preimage.
-  Variables A B:Type.
-  Variable B_J: Join B.
-   Variable PA: Perm_alg B.
-
-  Variable f:A -> B.
-  Variable f':B -> A.
-
-  Hypothesis Hf'_f : forall x, f' (f x) = x.
-  Hypothesis Hf_f' : join_hom (f oo f').
-
-  Lemma f_inj : forall x y : A,  f x = f y -> x = y.
-Admitted.
-#[global] Instance Join_preimage: Join A. exact (fun a b c => join (f a) (f b) (f c)). Defined.
-
-  #[global] Instance Perm_preimage  : @Perm_alg _  Join_preimage.
-Admitted.
-
-  Context {SAb: Sep_alg B}.
-  Hypothesis Hcore : forall x, core (f (f' x)) = f (f' (core x)).
-
-  #[global] Instance Sep_preimage : Sep_alg A.
-Admitted.
-
- #[global] Instance Sing_preimage {Sing_b: Sing_alg B}: Sing_alg A.
-Admitted.
-
- #[global] Instance Canc_preimage {CAb: Canc_alg B} : Canc_alg A.
-Admitted.
-
- #[global] Instance Disj_preimage {DAb: Disj_alg B} : Disj_alg A.
-Admitted.
-
-End sa_preimage.
-
-#[global] Existing Instance Join_preimage.
-#[global] Existing Instance Perm_preimage.
-#[global] Existing Instance Sep_preimage.
-#[global] Existing Instance Sing_preimage.
-#[global] Existing Instance Canc_preimage.
-#[global] Existing Instance Disj_preimage.
-
-Section SepAlgBijection.
-  Variables (A: Type) (Ja: Join A)(PAa: Perm_alg A).
-  Variable B:Type .
-
-  Variable bij : bijection A B.
-#[global] Instance Join_bij: Join B. exact (fun (x y z : B) => join (bij_g _ _ bij x) (bij_g _ _ bij y) (bij_g _ _ bij z)). Defined.
-
-  Lemma Perm_bij  : Perm_alg B.
-Admitted.
-
-  #[global] Instance Sep_bij {SAa: Sep_alg A} : Sep_alg B.
-Admitted.
-
- Lemma Sing_bij {SAa: Sep_alg A}{SingA: Sing_alg A} : Sing_alg B.
-Admitted.
-
- #[global] Instance Canc_bij {SAa: Canc_alg A} : Canc_alg B.
-Admitted.
-
-  #[global] Instance  Disj_bij {DAa: Disj_alg A} : Disj_alg B.
-Admitted.
-
-End SepAlgBijection.
-#[global] Existing Instance Join_bij.
-#[global] Existing Instance Perm_bij.
-#[global] Existing Instance Sep_bij.
-#[global] Existing Instance Sing_bij.
-#[global] Existing Instance Canc_bij.
-#[global] Existing Instance Disj_bij.
-
-End sepalg_generators.
-
-End VST_DOT_msl_DOT_sepalg_generators_WRAPPED.
-Module Export VST_DOT_msl_DOT_sepalg_generators.
-Module Export VST.
-Module Export msl.
-Module Export sepalg_generators.
-Include VST_DOT_msl_DOT_sepalg_generators_WRAPPED.sepalg_generators.
-End sepalg_generators.
-
-End msl.
-
-End VST.
-
-End VST_DOT_msl_DOT_sepalg_generators.
-Import VST.msl.base.
 Import VST.msl.eq_dec.
 Import VST.msl.boolean_alg.
 
@@ -629,21 +466,10 @@ Definition Lsh  : Share.t.
 Admitted.
 Definition Rsh  : Share.t.
 Admitted.
-Import VST.msl.sepalg.
-
-Section SA_LOWER.
-  Variable A : Type.
-#[local] Instance Join_lower: Join (option A).
-Admitted.
-
-End SA_LOWER.
-
-#[global] Existing Instance Join_lower.
 
 Definition share : Type.
 exact (Share.t).
 Defined.
-Import VST.msl.ageable.
 
 Class Age_alg (A:Type) {JOIN: Join A}{as_age : ageable A}{SA: Sep_alg A} :=
 mkAge {
@@ -657,8 +483,6 @@ mkAge {
     exists x:A, exists y:A, join x y z /\ age x x' /\ age y y'
 ; age_core : forall x y : A, age x y -> age (core x) (core y)
 }.
-
-Import VST.msl.predicates_hered.
 
 Class Ext_alg (A : Type) `{EO : Ext_ord A} {J : Join A} {SA : Sep_alg A} :=
   { ext_join_commut : forall {x y z z'}, join x y z -> ext_order z z' ->
@@ -701,10 +525,6 @@ Module Type KNOT_ASSM.
   Declare Module K: KNOT_BASIC with Module KI := KI.
 
 End KNOT_ASSM.
-Export VST.msl.knot_shims.
-Export VST.msl.functors.
-
-Export MixVariantFunctor.
 Export MixVariantFunctorGenerator.
 
 Definition nonempty_share (sh: share) :=
@@ -717,7 +537,6 @@ Definition writable_share (sh: share) :=
 Lemma bot_unreadable: ~readable_share Share.bot.
 Admitted.
 Import VST.msl.ghost.
-Import VST.veric.compspecs.
 
 Module Type ADR_VAL.
 Parameter address : Type.
@@ -749,49 +568,14 @@ exact (fix dtfr (T: TypeTree): functor :=
   | ListType T => flist (dtfr T)
   end).
 Defined.
-Definition fpreds: functor.
-Admitted.
 
 Module Type STRAT_MODEL.
   Declare Module AV : ADR_VAL.
-  Import AV.
-Definition f_res : functor.
-Admitted.
-Definition ghost (PRED : Type) : Type.
-exact (list (option ({g: Ghost & {a: @G g | ghost.valid a}} * fpreds PRED)%type)).
-Defined.
-Definition ghost_fmap (A B:Type) (f:A->B) (g:B->A)(x:ghost A) : ghost B.
-Admitted.
-
-  Axiom ff_ghost : functorFacts ghost ghost_fmap.
-Definition f_ghost : functor.
-exact (Functor ff_ghost).
-Defined.
-Definition f_pre_rmap : functor.
-exact (fpair (ffunc (fconst address) f_res) f_ghost).
-Defined.
 
 End STRAT_MODEL.
 
 Module StratModel (AV' : ADR_VAL) : STRAT_MODEL with Module AV:=AV'.
   Module AV := AV'.
-  Import AV.
-Definition f_res : functor.
-Admitted.
-Definition ghost (PRED : Type) : Type.
-exact (list (option ({g: Ghost & {a: @G g | ghost.valid a}} * fpreds PRED)%type)).
-Defined.
-Definition ghost_fmap (A B:Type) (f:A->B) (g:B->A)(x:ghost A) : ghost B.
-Admitted.
-
-  Lemma ff_ghost : functorFacts ghost ghost_fmap.
-Admitted.
-Definition f_ghost : functor.
-exact (Functor ff_ghost).
-Defined.
-Definition f_pre_rmap : functor.
-exact (fpair (ffunc (fconst address) f_res) f_ghost).
-Defined.
 
 End StratModel.
 
@@ -847,23 +631,7 @@ End RMAPS.
 Module Rmaps (AV':ADR_VAL): RMAPS with Module AV:=AV'.
   Module Export AV:=AV'.
 
-  Module SM := StratModel(AV).
-  Import SM.
-
   Module Export TyF.
-    Definition F := f_pre_rmap.
-
-    Definition Rel A (r1 r2 : f_pre_rmap A) := fst r1 = fst r2 /\ join_sub (snd r1) (snd r2).
-    Lemma Rel_fmap :
-      forall (A B : Type) (f1 : A -> B) (f2 : B -> A) (x y : F A),
-      Rel A x y -> Rel B (fmap F f1 f2 x) (fmap F f1 f2 y).
-Admitted.
-    Lemma Rel_refl : forall (A : Type) (x : F A), Rel A x x.
-Admitted.
-    Lemma Rel_trans :
-      forall (A : Type) (x y z : F A),
-      Rel A x y -> Rel A y z -> Rel A x z.
-Admitted.
   End TyF.
 
   Module TyFSA <: KNOT_FULL_SA_INPUT with Module KI:=TyF.
@@ -1583,7 +1351,6 @@ Definition size_compatible {C: compspecs} t p :=
   | _ => True
   end.
 Export VST.veric.composite_compute.
-Export VST.veric.align_mem.
 
 #[export] Program Instance Bveric: BupdSepLog mpred gname compcert_rmaps.RML.R.preds :=
   { bupd := bupd; own := @own }.
