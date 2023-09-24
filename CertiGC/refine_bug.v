@@ -1,29 +1,89 @@
 (* -*- mode: coq; coq-prog-args: ("-emacs" "-w" "-overriding-logical-loadpath" "-w" "-deprecated-native-compiler-option,-native-compiler-disabled" "-native-compiler" "ondemand" "-Q" "/github/workspace/cwd" "Top" "-Q" "/github/workspace/CertiGraph/lib" "CertiGraph.lib" "-Q" "/github/workspace/CertiGraph/msl_ext" "CertiGraph.msl_ext" "-Q" "/github/workspace/CertiGraph/msl_application" "CertiGraph.msl_application" "-Q" "/github/workspace/CertiGraph/graph" "CertiGraph.graph" "-Q" "/github/workspace/CertiGraph/heap_model_direct" "CertiGraph.heap_model_direct" "-Q" "/github/workspace/CertiGraph" "CertiGraph" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/VST" "VST" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/compcert" "compcert" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Bignums" "Bignums" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Flocq" "Flocq" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/Ltac2" "Ltac2" "-Q" "/home/coq/.opam/4.13.1+flambda/lib/coq/user-contrib/MenhirLib" "MenhirLib" "-top" "CertiGraph.CertiGC.refine_bug") -*- *)
-(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines, then from 1008 lines to 924 lines, then from 937 lines to 1221 lines, then from 1226 lines to 942 lines, then from 955 lines to 1291 lines, then from 1296 lines to 984 lines, then from 997 lines to 1278 lines, then from 1282 lines to 1088 lines, then from 1101 lines to 1553 lines, then from 1557 lines to 1167 lines, then from 1180 lines to 1495 lines, then from 1500 lines to 1176 lines, then from 1189 lines to 1340 lines, then from 1343 lines to 1218 lines, then from 1231 lines to 3579 lines, then from 3574 lines to 1250 lines, then from 1263 lines to 1367 lines, then from 1372 lines to 1266 lines, then from 1278 lines to 1254 lines, then from 1267 lines to 2204 lines, then from 2208 lines to 1277 lines, then from 1290 lines to 3502 lines, then from 3499 lines to 1281 lines, then from 1294 lines to 3043 lines, then from 3046 lines to 1542 lines, then from 1555 lines to 2919 lines, then from 2921 lines to 1551 lines, then from 1564 lines to 1653 lines, then from 1658 lines to 1567 lines *)
+(* File reduced by coq-bug-minimizer from original input, then from 248 lines to 293 lines, then from 306 lines to 1139 lines, then from 1144 lines to 745 lines, then from 758 lines to 2718 lines, then from 2722 lines to 1108 lines, then from 1120 lines to 836 lines, then from 849 lines to 1155 lines, then from 1160 lines to 909 lines, then from 727 lines to 139 lines, then from 152 lines to 655 lines, then from 657 lines to 144 lines, then from 157 lines to 1418 lines, then from 1420 lines to 199 lines, then from 212 lines to 2324 lines, then from 2327 lines to 228 lines, then from 241 lines to 2815 lines, then from 2818 lines to 249 lines, then from 262 lines to 6396 lines, then from 6401 lines to 363 lines, then from 376 lines to 1830 lines, then from 1830 lines to 363 lines, then from 376 lines to 981 lines, then from 985 lines to 364 lines, then from 377 lines to 3092 lines, then from 3076 lines to 366 lines, then from 379 lines to 3551 lines, then from 3552 lines to 375 lines, then from 388 lines to 692 lines, then from 696 lines to 375 lines, then from 388 lines to 849 lines, then from 853 lines to 387 lines, then from 400 lines to 866 lines, then from 871 lines to 385 lines, then from 398 lines to 3832 lines, then from 3835 lines to 504 lines, then from 517 lines to 3129 lines, then from 3133 lines to 2318 lines, then from 2311 lines to 515 lines, then from 528 lines to 2614 lines, then from 2616 lines to 628 lines, then from 641 lines to 978 lines, then from 983 lines to 635 lines, then from 648 lines to 2005 lines, then from 2005 lines to 732 lines, then from 745 lines to 1661 lines, then from 1665 lines to 753 lines, then from 766 lines to 2033 lines, then from 2037 lines to 778 lines, then from 791 lines to 1344 lines, then from 1349 lines to 772 lines, then from 785 lines to 2681 lines, then from 2660 lines to 893 lines, then from 895 lines to 811 lines, then from 824 lines to 1472 lines, then from 1476 lines to 823 lines, then from 836 lines to 2366 lines, then from 2371 lines to 840 lines, then from 853 lines to 1260 lines, then from 1261 lines to 892 lines, then from 905 lines to 960 lines, then from 965 lines to 904 lines, then from 917 lines to 1065 lines, then from 1070 lines to 885 lines, then from 898 lines to 1548 lines, then from 1553 lines to 889 lines, then from 902 lines to 1743 lines, then from 1748 lines to 922 lines, then from 935 lines to 2718 lines, then from 2718 lines to 997 lines, then from 1008 lines to 924 lines, then from 937 lines to 1221 lines, then from 1226 lines to 942 lines, then from 955 lines to 1291 lines, then from 1296 lines to 984 lines, then from 997 lines to 1278 lines, then from 1282 lines to 1088 lines, then from 1101 lines to 1553 lines, then from 1557 lines to 1167 lines, then from 1180 lines to 1495 lines, then from 1500 lines to 1176 lines, then from 1189 lines to 1340 lines, then from 1343 lines to 1218 lines, then from 1231 lines to 3579 lines, then from 3574 lines to 1250 lines, then from 1263 lines to 1367 lines, then from 1372 lines to 1266 lines, then from 1278 lines to 1254 lines, then from 1267 lines to 2204 lines, then from 2208 lines to 1277 lines, then from 1290 lines to 3502 lines, then from 3499 lines to 1281 lines, then from 1294 lines to 3043 lines, then from 3046 lines to 1542 lines, then from 1555 lines to 2919 lines, then from 2921 lines to 1551 lines, then from 1564 lines to 1653 lines, then from 1658 lines to 1567 lines, then from 1580 lines to 1567 lines, then from 1580 lines to 2131 lines, then from 2135 lines to 1537 lines, then from 1550 lines to 2714 lines, then from 2713 lines to 1557 lines, then from 1570 lines to 2436 lines, then from 2437 lines to 1569 lines, then from 1582 lines to 2503 lines, then from 2506 lines to 1578 lines *)
 (* coqc version 8.17.1 compiled with OCaml 4.13.1
    coqtop version 8.17.1
-   Expected coqc runtime on this file: 1.327 sec *)
+   Expected coqc runtime on this file: 1.544 sec *)
 Require CertiGraph.graph.graph_model.
 Require VST.sepcomp.extspec.
 Require VST.veric.Memory.
 Require VST.msl.ghost.
 Require VST.veric.compspecs.
 Require VST.msl.knot_shims.
-Require VST.msl.shares.
-Require VST.msl.knot_full_sa.
+Require VST.msl.psepalg.
+Require VST.msl.tree_shares.
 Require compcert.export.Clightdefs.
-Export VST.msl.ageable.
-Export VST.msl.age_sepalg.
+Import VST.msl.boolean_alg.
+
+Module Share : SHARE_MODEL := tree_shares.Share.
+Definition share : Type.
+exact (Share.t).
+Defined.
+Section SM.
+
+End SM.
+Import VST.msl.ageable.
+Import VST.msl.sepalg.
+
+Class Age_alg (A:Type) {JOIN: Join A}{as_age : ageable A}{SA: Sep_alg A} :=
+mkAge {
+  age1_join : forall x {y z x'}, join x y z -> age x x' ->
+    exists y':A, exists z':A, join x' y' z' /\ age y y' /\ age z z'
+; age1_join2 : forall x {y z z'}, join x y z -> age z z' ->
+    exists x':A, exists y':A, join x' y' z' /\ age x x' /\ age y y'
+; unage_join : forall x {x' y' z'}, join x' y' z' -> age x x' ->
+    exists y:A, exists z:A, join x y z /\ age y y' /\ age z z'
+; unage_join2 : forall z {x' y' z'}, join x' y' z' -> age z z' ->
+    exists x:A, exists y:A, join x y z /\ age x x' /\ age y y'
+; age_core : forall x y : A, age x y -> age (core x) (core y)
+}.
+
+Import VST.msl.predicates_hered.
+
+Class Ext_alg (A : Type) `{EO : Ext_ord A} {J : Join A} {SA : Sep_alg A} :=
+  { ext_join_commut : forall {x y z z'}, join x y z -> ext_order z z' ->
+      exists x', ext_order x x' /\ join x' y z';
+    join_ext_commut : forall {x x' y' z'}, ext_order x x' -> join x' y' z' ->
+      exists z, join x y' z /\ ext_order z z';
+
+    id_exists : forall x, exists e, identity e /\ unit_for e x
+  }.
+
+Section Predicates.
+
+Context {A : Type} {JA : Join A} {PA : Perm_alg A} {SA : Sep_alg A} {AG : ageable A} {XA : Age_alg A} {EO : Ext_ord A} {EA : Ext_alg A}.
+
+Program Definition sepcon  (p q:pred A) : pred A := fun x:A =>
+  exists y:A, exists z:A, join y z x /\ p y /\ q z.
+Admit Obligations.
+
+End Predicates.
+
+Notation "P '*' Q" := (sepcon P Q) : pred.
+
+Module Type KNOT_FULL_BASIC_INPUT.
+
+End KNOT_FULL_BASIC_INPUT.
+
+Module Type KNOT_FULL_SA_INPUT.
+  Declare Module KI: KNOT_FULL_BASIC_INPUT.
+
+End KNOT_FULL_SA_INPUT.
+
+Module Type KNOT_BASIC.
+  Declare Module KI:KNOT_FULL_BASIC_INPUT.
+
+End KNOT_BASIC.
+
+Module Type KNOT_ASSM.
+  Declare Module KI: KNOT_FULL_BASIC_INPUT.
+  Declare Module KSAI: KNOT_FULL_SA_INPUT with Module KI := KI.
+  Declare Module K: KNOT_BASIC with Module KI := KI.
+
+End KNOT_ASSM.
 Export VST.msl.base.
 Export VST.msl.knot_shims.
-Export VST.msl.knot_full_sa.
-Export VST.msl.predicates_hered.
-Export VST.msl.predicates_sl.
-Export VST.msl.sepalg.
 Export VST.msl.functors.
-Export VST.msl.sepalg_functors.
 Export VST.msl.sepalg_generators.
-Export VST.msl.shares.
 
 Export MixVariantFunctor.
 Export MixVariantFunctorGenerator.
@@ -93,31 +153,14 @@ Defined.
 Definition f_pre_rmap : functor.
 exact (fpair (ffunc (fconst address) f_res) f_ghost).
 Defined.
-#[global] Instance Join_pre_rmap (A: Type) : Join (f_pre_rmap A).
-Admitted.
-  #[global] Declare Instance Sep_pre_rmap: forall (A: Type), Sep_alg (f_pre_rmap A).
-  Parameter paf_pre_rmap : @pafunctor f_pre_rmap Join_pre_rmap.
 
 End STRAT_MODEL.
 
 Module StratModel (AV' : ADR_VAL) : STRAT_MODEL with Module AV:=AV'.
   Module AV := AV'.
   Import AV.
-Definition preds: functor.
-Admitted.
-
-  Inductive res (PRED : Type) : Type :=
-    | NO':  forall sh: Share.t, ~(readable_share sh) -> res PRED
-    | YES': forall sh: Share.t, readable_share sh -> kind -> preds PRED -> res PRED
-    | PURE': kind -> preds PRED -> res PRED.
-Definition res_fmap (A B:Type) (f:A->B) (g:B->A)(x:res A) : res B.
-Admitted.
-
-  Lemma ff_res : functorFacts res res_fmap.
-Admitted.
 Definition f_res : functor.
-exact (Functor ff_res).
-Defined.
+Admitted.
 Definition ghost (PRED : Type) : Type.
 exact (list (option ({g: Ghost & {a: @G g | ghost.valid a}} * fpreds PRED)%type)).
 Defined.
@@ -131,17 +174,9 @@ exact (Functor ff_ghost).
 Defined.
 
   #[global] Instance preds_join PRED : Join _ := Join_equiv (fpreds PRED).
-
-  Definition pre_rmap (A:Type) := ((address -> res A) * ghost A)%type.
 Definition f_pre_rmap : functor.
 exact (fpair (ffunc (fconst address) f_res) f_ghost).
 Defined.
-#[global] Instance Join_pre_rmap (A: Type) : Join (pre_rmap A).
-Admitted.
-Definition paf_pre_rmap : @pafunctor f_pre_rmap Join_pre_rmap.
-Admitted.
-Definition Sep_pre_rmap (A: Type): Sep_alg (pre_rmap A).
-Admitted.
 
 End StratModel.
 
@@ -220,25 +255,6 @@ Admitted.
 
   Module TyFSA <: KNOT_FULL_SA_INPUT with Module KI:=TyF.
     Module KI := TyF.
-#[global] Instance Join_F: forall A, Join (F A).
-exact (_).
-Defined.
-Definition Perm_F : forall A, Perm_alg (F A).
-Admitted.
-    Definition Sep_F := Sep_pre_rmap.
-    Definition paf_F := paf_pre_rmap.
-
-    Lemma Rel_join_commut : forall {A} {x y z z' : F A}, join x y z ->
-      Rel A z z' -> exists x', Rel A x x' /\ join x' y z'.
-Admitted.
-
-    Lemma join_Rel_commut : forall {A} {x x' y' z' : F A}, Rel A x x' ->
-      join x' y' z' -> exists z, join x y' z /\ Rel A z z'.
-Admitted.
-
-    Lemma id_exists : forall {A} (x : F A), exists e,
-      identity e /\ unit_for e x.
-Admitted.
 
   End TyFSA.
 
@@ -249,11 +265,6 @@ Admitted.
     Module KI := TyF.
     Module KSAI := TyFSA.
     Module K := K.
-    Import K.
-
-    Lemma approx_core : forall n f,
-      core(Sep_alg := Sep_pre_rmap predicate) (fmap f_pre_rmap (approx n) (approx n) f) = fmap f_pre_rmap (approx n) (approx n) (core(Sep_alg := Sep_pre_rmap predicate) f).
-Admitted.
 
   End KA.
 
